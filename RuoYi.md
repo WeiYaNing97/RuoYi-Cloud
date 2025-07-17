@@ -37,6 +37,9 @@ com.ruoyi
 │       └── ruoyi-file                                // 文件服务 [9300]
 ├── ruoyi-visual          // 图形化管理模块
 │       └── ruoyi-visual-monitor                      // 监控中心 [9100]
+├── ruoyi-mq              // 消息队列模块
+│       └── ruoyi-activemq                            // activemq[9601]
+│       └── ruoyi-rabbitmq                            // rabbitmq[9602]
 ├──pom.xml                // 公共依赖
 ~~~
 

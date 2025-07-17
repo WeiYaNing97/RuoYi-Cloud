@@ -262,6 +262,9 @@
         <module>ruoyi-modules</module>
         <module>ruoyi-api</module>
         <module>ruoyi-common</module>
+        <module>ruoyi-mq</module>
+        <module>ruoyi-mq/ruoyi-activemq</module>
+        <module>ruoyi-mq/ruoyi-rabbitmq</module>
     </modules>
     <packaging>pom</packaging>
 
