@@ -29,5 +29,12 @@
             <artifactId>springdoc-openapi-ui</artifactId>
         </dependency>
 
+        <!-- 引入的 swagger 注解-->
+        <!-- https://mvnrepository.com/artifact/io.swagger/swagger-annotations -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.2</version>
+        </dependency>
 	</dependencies>
 </project>

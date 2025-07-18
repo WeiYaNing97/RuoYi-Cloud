@@ -13,7 +13,7 @@ public class RuoYiActiveMqApplication {
     public static void main(String[] args)
     {
         SpringApplication.run(RuoYiActiveMqApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  RabbitMq模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
+        System.out.println("(♥◠‿◠)ﾉﾞ  ActiveMq模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
                 " .-------.       ____     __        \n" +
                 " |  _ _   \\      \\   \\   /  /    \n" +
                 " | ( ' )  |       \\  _. /  '       \n" +
