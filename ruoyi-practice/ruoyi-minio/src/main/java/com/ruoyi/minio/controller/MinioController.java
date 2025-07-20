@@ -25,7 +25,7 @@ import java.io.InputStream;
  **/
 @Slf4j
 @RestController
-@RequestMapping("/minio/oss")
+@RequestMapping("/oss")
 public class MinioController {
 
     @Autowired

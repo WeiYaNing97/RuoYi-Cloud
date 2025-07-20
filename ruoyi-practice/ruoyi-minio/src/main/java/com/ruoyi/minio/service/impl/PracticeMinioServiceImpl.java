@@ -53,6 +53,7 @@ public class PracticeMinioServiceImpl implements IPracticeMinioService
     @Override
     public int insertPracticeMinio(PracticeMinio practiceMinio)
     {
+        practiceMinio.setId(1l);
         practiceMinio.setCreateTime(DateUtils.getNowDate());
         return practiceMinioMapper.insertPracticeMinio(practiceMinio);
     }
