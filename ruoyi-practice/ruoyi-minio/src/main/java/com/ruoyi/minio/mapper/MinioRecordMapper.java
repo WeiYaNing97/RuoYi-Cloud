@@ -58,4 +58,6 @@ public interface MinioRecordMapper
      * @return 结果
      */
     public int deleteMinioRecordByIds(Long[] ids);
+
+    List<MinioRecord> selectMinioRecordByIds(Long[] ids);
 }

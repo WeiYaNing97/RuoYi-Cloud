@@ -7,9 +7,11 @@ import com.ruoyi.minio.config.MyMinioConfig;
 import com.ruoyi.minio.domain.MinioRecord;
 import com.ruoyi.minio.service.IMinioRecordService;
 import com.ruoyi.minio.utils.MyMinioUtils;
+import io.minio.ObjectWriteResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +29,12 @@ import java.io.InputStream;
 @RestController
 @RequestMapping("/oss")
 public class MinioController {
+
+    /**
+     * 访问地址
+     */
+    @Value("${minio.endpoint}")
+    private String endpoint;
 
     @Autowired
     private MyMinioUtils minioUtils;
@@ -52,14 +60,13 @@ public class MinioController {
             String newFileName = StringUtils.substringBeforeLast(fileName, ".")+System.currentTimeMillis() + "." + StringUtils.substringAfterLast(fileName, ".");
             //类型
             String contentType = file.getContentType();
-            minioUtils.uploadFile(minioConfig.getBucketName(), file, newFileName, contentType);
+            ObjectWriteResponse objectWriteResponse = minioUtils.uploadFile(minioConfig.getBucketName(), file, newFileName, contentType);
 
 
             MinioRecord minioRecord = new MinioRecord();
             minioRecord.setFileName(newFileName);
-            minioRecord.setFilePath(newFileName);
+            minioRecord.setFilePath(endpoint+"\\" + objectWriteResponse.bucket()+ "\\" +newFileName);
             minioRecord.setCreateBy(SecurityUtils.getUsername());
-            minioRecord.setId(2l);
             minioRecordService.insertMinioRecord(minioRecord);
             return AjaxResult.success("上传成功");
         } catch (Exception e) {

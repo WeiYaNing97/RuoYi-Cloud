@@ -220,7 +220,8 @@ public class MyMinioUtils {
     @SneakyThrows(Exception.class)
     public ObjectWriteResponse uploadFile(String bucketName, MultipartFile file, String objectName, String contentType) {
         InputStream inputStream = file.getInputStream();
-        return minioClient.putObject(PutObjectArgs.builder().bucket(bucketName).object(objectName).contentType(contentType).stream(inputStream, inputStream.available(), -1).build());
+        ObjectWriteResponse objectWriteResponse = minioClient.putObject(PutObjectArgs.builder().bucket(bucketName).object(objectName).contentType(contentType).stream(inputStream, inputStream.available(), -1).build());
+        return objectWriteResponse;
     }
 
     /**
@@ -327,6 +328,17 @@ public class MyMinioUtils {
     @SneakyThrows(Exception.class)
     public void removeFile(String bucketName, String objectName) {
         minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(objectName).build());
+    }
+
+    /**
+     * 删除文件
+     */
+    @SneakyThrows(Exception.class)
+    public void removeFile(String filePath) {
+        String[] filePath_split = filePath.split("\\\\");
+        if (filePath_split.length > 2) {
+            minioClient.removeObject(RemoveObjectArgs.builder().bucket(filePath_split[filePath_split.length-2]).object(filePath_split[filePath_split.length-1]).build());
+        }
     }
 
     /**

@@ -1,12 +1,17 @@
 package com.ruoyi.minio.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import com.ruoyi.common.core.utils.DateUtils;
+import com.ruoyi.minio.utils.MyMinioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.minio.mapper.MinioRecordMapper;
 import com.ruoyi.minio.domain.MinioRecord;
 import com.ruoyi.minio.service.IMinioRecordService;
+
+import javax.annotation.Resource;
 
 /**
  * minio操作记录Service业务层处理
@@ -17,6 +22,8 @@ import com.ruoyi.minio.service.IMinioRecordService;
 @Service
 public class MinioRecordServiceImpl implements IMinioRecordService 
 {
+    @Resource
+    private MyMinioUtils minioUtils;
     @Autowired
     private MinioRecordMapper minioRecordMapper;
 
@@ -79,6 +86,8 @@ public class MinioRecordServiceImpl implements IMinioRecordService
     @Override
     public int deleteMinioRecordByIds(Long[] ids)
     {
+        List<MinioRecord> pojoList= minioRecordMapper.selectMinioRecordByIds(ids);
+        pojoList.stream().forEach(x -> minioUtils.removeFile(x.getFilePath()));
         return minioRecordMapper.deleteMinioRecordByIds(ids);
     }
 
@@ -91,6 +100,8 @@ public class MinioRecordServiceImpl implements IMinioRecordService
     @Override
     public int deleteMinioRecordById(Long id)
     {
+        MinioRecord minioRecord = minioRecordMapper.selectMinioRecordById(id);
+        minioUtils.removeFile(minioRecord.getFilePath());
         return minioRecordMapper.deleteMinioRecordById(id);
     }
 }

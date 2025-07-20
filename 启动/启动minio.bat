@@ -1,0 +1,1 @@
+start cmd /k "d: && cd D:\Program Files\minio\bin && set MINIO_ROOT_USER=admin&& set MINIO_ROOT_PASSWORD=admin1234 && .\minio.exe server D:\Program Files\minio\data --console-address "127.0.0.1:9000" --address "127.0.0.1:9005""

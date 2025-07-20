@@ -1,0 +1,1 @@
+start cmd /k "d: && cd D:\Program Files\minio\bin && mc alias set myminio http://localhost:9005 admin admin1234"

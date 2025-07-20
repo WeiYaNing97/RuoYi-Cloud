@@ -1,0 +1,1 @@
+start cmd /k "d: && cd D:\Program Files\nacos\bin && startup.cmd -m standalone"

@@ -1,0 +1,1 @@
+start cmd /k "d: && cd D:\Program Files && java -Dserver.port=8718  -jar sentinel-dashboard-1.8.8.jar"
