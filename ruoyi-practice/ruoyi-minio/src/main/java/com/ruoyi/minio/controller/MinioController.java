@@ -4,8 +4,8 @@ import com.ruoyi.common.core.utils.StringUtils;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.ruoyi.common.security.utils.SecurityUtils;
 import com.ruoyi.minio.config.MyMinioConfig;
-import com.ruoyi.minio.domain.PracticeMinio;
-import com.ruoyi.minio.service.IPracticeMinioService;
+import com.ruoyi.minio.domain.MinioRecord;
+import com.ruoyi.minio.service.IMinioRecordService;
 import com.ruoyi.minio.utils.MyMinioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.IOUtils;
@@ -35,7 +35,7 @@ public class MinioController {
     private MyMinioConfig minioConfig;
 
     @Autowired
-    private IPracticeMinioService practiceMinioService;
+    private IMinioRecordService minioRecordService;
 
     /**
      * 文件上传
@@ -55,11 +55,12 @@ public class MinioController {
             minioUtils.uploadFile(minioConfig.getBucketName(), file, newFileName, contentType);
 
 
-            PracticeMinio practiceMinio = new PracticeMinio();
-            practiceMinio.setFiledName(newFileName);
-            practiceMinio.setFiledPath(newFileName);
-            practiceMinio.setCreateBy(SecurityUtils.getUsername());
-            practiceMinioService.insertPracticeMinio(practiceMinio);
+            MinioRecord minioRecord = new MinioRecord();
+            minioRecord.setFileName(newFileName);
+            minioRecord.setFilePath(newFileName);
+            minioRecord.setCreateBy(SecurityUtils.getUsername());
+            minioRecord.setId(2l);
+            minioRecordService.insertMinioRecord(minioRecord);
             return AjaxResult.success("上传成功");
         } catch (Exception e) {
             e.printStackTrace();

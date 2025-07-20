@@ -1,7 +1,7 @@
 package com.ruoyi.minio.mapper;
 
 import java.util.List;
-import com.ruoyi.minio.domain.PracticeMinio;
+import com.ruoyi.minio.domain.MinioRecord;
 
 /**
  * minio操作记录Mapper接口
@@ -9,7 +9,7 @@ import com.ruoyi.minio.domain.PracticeMinio;
  * @author ruoyi
  * @date 2025-07-20
  */
-public interface PracticeMinioMapper 
+public interface MinioRecordMapper 
 {
     /**
      * 查询minio操作记录
@@ -17,31 +17,31 @@ public interface PracticeMinioMapper
      * @param id minio操作记录主键
      * @return minio操作记录
      */
-    public PracticeMinio selectPracticeMinioById(Long id);
+    public MinioRecord selectMinioRecordById(Long id);
 
     /**
      * 查询minio操作记录列表
      * 
-     * @param practiceMinio minio操作记录
+     * @param minioRecord minio操作记录
      * @return minio操作记录集合
      */
-    public List<PracticeMinio> selectPracticeMinioList(PracticeMinio practiceMinio);
+    public List<MinioRecord> selectMinioRecordList(MinioRecord minioRecord);
 
     /**
      * 新增minio操作记录
      * 
-     * @param practiceMinio minio操作记录
+     * @param minioRecord minio操作记录
      * @return 结果
      */
-    public int insertPracticeMinio(PracticeMinio practiceMinio);
+    public int insertMinioRecord(MinioRecord minioRecord);
 
     /**
      * 修改minio操作记录
      * 
-     * @param practiceMinio minio操作记录
+     * @param minioRecord minio操作记录
      * @return 结果
      */
-    public int updatePracticeMinio(PracticeMinio practiceMinio);
+    public int updateMinioRecord(MinioRecord minioRecord);
 
     /**
      * 删除minio操作记录
@@ -49,7 +49,7 @@ public interface PracticeMinioMapper
      * @param id minio操作记录主键
      * @return 结果
      */
-    public int deletePracticeMinioById(Long id);
+    public int deleteMinioRecordById(Long id);
 
     /**
      * 批量删除minio操作记录
@@ -57,5 +57,5 @@ public interface PracticeMinioMapper
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
-    public int deletePracticeMinioByIds(Long[] ids);
+    public int deleteMinioRecordByIds(Long[] ids);
 }

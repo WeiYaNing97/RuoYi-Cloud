@@ -1,17 +1,17 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="文件名称" prop="filedName">
+      <el-form-item label="文件名" prop="fileName">
         <el-input
-          v-model="queryParams.filedName"
-          placeholder="请输入文件名称"
+          v-model="queryParams.fileName"
+          placeholder="请输入文件名"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="文件路径" prop="filedPath">
+      <el-form-item label="文件路径" prop="filePath">
         <el-input
-          v-model="queryParams.filedPath"
+          v-model="queryParams.filePath"
           placeholder="请输入文件路径"
           clearable
           @keyup.enter.native="handleQuery"
@@ -31,7 +31,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['minio:practice_minio:add']"
+          v-hasPermi="['practice:minio_record:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -42,7 +42,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['minio:practice_minio:edit']"
+          v-hasPermi="['practice:minio_record:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -53,7 +53,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['minio:practice_minio:remove']"
+          v-hasPermi="['practice:minio_record:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -63,17 +63,17 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['minio:practice_minio:export']"
+          v-hasPermi="['practice:minio_record:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="practice_minioList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="minio_recordList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="主键" align="center" prop="id" />
-      <el-table-column label="文件名称" align="center" prop="filedName" />
-      <el-table-column label="文件路径" align="center" prop="filedPath" />
+      <el-table-column label="文件名" align="center" prop="fileName" />
+      <el-table-column label="文件路径" align="center" prop="filePath" />
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -82,14 +82,14 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['minio:practice_minio:edit']"
+            v-hasPermi="['practice:minio_record:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['minio:practice_minio:remove']"
+            v-hasPermi="['practice:minio_record:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -106,11 +106,11 @@
     <!-- 添加或修改minio操作记录对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="文件名称" prop="filedName">
-          <el-input v-model="form.filedName" placeholder="请输入文件名称" />
+        <el-form-item label="文件名" prop="fileName">
+          <el-input v-model="form.fileName" placeholder="请输入文件名" />
         </el-form-item>
-        <el-form-item label="文件路径" prop="filedPath">
-          <el-input v-model="form.filedPath" placeholder="请输入文件路径" />
+        <el-form-item label="文件路径" prop="filePath">
+          <el-input v-model="form.filePath" placeholder="请输入文件路径" />
         </el-form-item>
         <el-form-item label="删除标志" prop="delFlag">
           <el-input v-model="form.delFlag" placeholder="请输入删除标志" />
@@ -128,10 +128,10 @@
 </template>
 
 <script>
-import { listPractice_minio, getPractice_minio, delPractice_minio, addPractice_minio, updatePractice_minio } from "@/api/minio/practice_minio"
+import { listMinio_record, getMinio_record, delMinio_record, addMinio_record, updateMinio_record } from "@/api/practice/minio_record"
 
 export default {
-  name: "Practice_minio",
+  name: "Minio_record",
   data() {
     return {
       // 遮罩层
@@ -147,7 +147,7 @@ export default {
       // 总条数
       total: 0,
       // minio操作记录表格数据
-      practice_minioList: [],
+      minio_recordList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -156,8 +156,8 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        filedName: null,
-        filedPath: null,
+        fileName: null,
+        filePath: null,
       },
       // 表单参数
       form: {},
@@ -173,8 +173,8 @@ export default {
     /** 查询minio操作记录列表 */
     getList() {
       this.loading = true
-      listPractice_minio(this.queryParams).then(response => {
-        this.practice_minioList = response.rows
+      listMinio_record(this.queryParams).then(response => {
+        this.minio_recordList = response.rows
         this.total = response.total
         this.loading = false
       })
@@ -188,8 +188,8 @@ export default {
     reset() {
       this.form = {
         id: null,
-        filedName: null,
-        filedPath: null,
+        fileName: null,
+        filePath: null,
         delFlag: null,
         createBy: null,
         createTime: null,
@@ -225,7 +225,7 @@ export default {
     handleUpdate(row) {
       this.reset()
       const id = row.id || this.ids
-      getPractice_minio(id).then(response => {
+      getMinio_record(id).then(response => {
         this.form = response.data
         this.open = true
         this.title = "修改minio操作记录"
@@ -236,13 +236,13 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.id != null) {
-            updatePractice_minio(this.form).then(response => {
+            updateMinio_record(this.form).then(response => {
               this.$modal.msgSuccess("修改成功")
               this.open = false
               this.getList()
             })
           } else {
-            addPractice_minio(this.form).then(response => {
+            addMinio_record(this.form).then(response => {
               this.$modal.msgSuccess("新增成功")
               this.open = false
               this.getList()
@@ -255,7 +255,7 @@ export default {
     handleDelete(row) {
       const ids = row.id || this.ids
       this.$modal.confirm('是否确认删除minio操作记录编号为"' + ids + '"的数据项？').then(function() {
-        return delPractice_minio(ids)
+        return delMinio_record(ids)
       }).then(() => {
         this.getList()
         this.$modal.msgSuccess("删除成功")
@@ -263,9 +263,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('minio/practice_minio/export', {
+      this.download('practice/minio_record/export', {
         ...this.queryParams
-      }, `practice_minio_${new Date().getTime()}.xlsx`)
+      }, `minio_record_${new Date().getTime()}.xlsx`)
     }
   }
 }

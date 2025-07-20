@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.common.log.annotation.Log;
 import com.ruoyi.common.log.enums.BusinessType;
 import com.ruoyi.common.security.annotation.RequiresPermissions;
-import com.ruoyi.minio.domain.PracticeMinio;
-import com.ruoyi.minio.service.IPracticeMinioService;
+import com.ruoyi.minio.domain.MinioRecord;
+import com.ruoyi.minio.service.IMinioRecordService;
 import com.ruoyi.common.core.web.controller.BaseController;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.ruoyi.common.core.utils.poi.ExcelUtil;
@@ -29,77 +29,77 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
  * @date 2025-07-20
  */
 @RestController
-@RequestMapping("/practice_minio")
-public class PracticeMinioController extends BaseController
+@RequestMapping("/minio_record")
+public class MinioRecordController extends BaseController
 {
     @Autowired
-    private IPracticeMinioService practiceMinioService;
+    private IMinioRecordService minioRecordService;
 
     /**
      * 查询minio操作记录列表
      */
-    @RequiresPermissions("minio:practice_minio:list")
+    @RequiresPermissions("practice:minio_record:list")
     @GetMapping("/list")
-    public TableDataInfo list(PracticeMinio practiceMinio)
+    public TableDataInfo list(MinioRecord minioRecord)
     {
         startPage();
-        List<PracticeMinio> list = practiceMinioService.selectPracticeMinioList(practiceMinio);
+        List<MinioRecord> list = minioRecordService.selectMinioRecordList(minioRecord);
         return getDataTable(list);
     }
 
     /**
      * 导出minio操作记录列表
      */
-    @RequiresPermissions("minio:practice_minio:export")
+    @RequiresPermissions("practice:minio_record:export")
     @Log(title = "minio操作记录", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, PracticeMinio practiceMinio)
+    public void export(HttpServletResponse response, MinioRecord minioRecord)
     {
-        List<PracticeMinio> list = practiceMinioService.selectPracticeMinioList(practiceMinio);
-        ExcelUtil<PracticeMinio> util = new ExcelUtil<PracticeMinio>(PracticeMinio.class);
+        List<MinioRecord> list = minioRecordService.selectMinioRecordList(minioRecord);
+        ExcelUtil<MinioRecord> util = new ExcelUtil<MinioRecord>(MinioRecord.class);
         util.exportExcel(response, list, "minio操作记录数据");
     }
 
     /**
      * 获取minio操作记录详细信息
      */
-    @RequiresPermissions("minio:practice_minio:query")
+    @RequiresPermissions("practice:minio_record:query")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(practiceMinioService.selectPracticeMinioById(id));
+        return success(minioRecordService.selectMinioRecordById(id));
     }
 
     /**
      * 新增minio操作记录
      */
-    @RequiresPermissions("minio:practice_minio:add")
+    @RequiresPermissions("practice:minio_record:add")
     @Log(title = "minio操作记录", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody PracticeMinio practiceMinio)
+    public AjaxResult add(@RequestBody MinioRecord minioRecord)
     {
-        return toAjax(practiceMinioService.insertPracticeMinio(practiceMinio));
+        return toAjax(minioRecordService.insertMinioRecord(minioRecord));
     }
 
     /**
      * 修改minio操作记录
      */
-    @RequiresPermissions("minio:practice_minio:edit")
+    @RequiresPermissions("practice:minio_record:edit")
     @Log(title = "minio操作记录", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody PracticeMinio practiceMinio)
+    public AjaxResult edit(@RequestBody MinioRecord minioRecord)
     {
-        return toAjax(practiceMinioService.updatePracticeMinio(practiceMinio));
+        return toAjax(minioRecordService.updateMinioRecord(minioRecord));
     }
 
     /**
      * 删除minio操作记录
      */
-    @RequiresPermissions("minio:practice_minio:remove")
+    @RequiresPermissions("practice:minio_record:remove")
     @Log(title = "minio操作记录", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(practiceMinioService.deletePracticeMinioByIds(ids));
+        return toAjax(minioRecordService.deleteMinioRecordByIds(ids));
     }
 }
