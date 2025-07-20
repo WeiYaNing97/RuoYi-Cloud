@@ -265,6 +265,8 @@
         <module>ruoyi-mq</module>
         <module>ruoyi-mq/ruoyi-activemq</module>
         <module>ruoyi-mq/ruoyi-rabbitmq</module>
+        <module>ruoyi-practice</module>
+        <module>ruoyi-practice/ruoyi-minio</module>
     </modules>
     <packaging>pom</packaging>
 
