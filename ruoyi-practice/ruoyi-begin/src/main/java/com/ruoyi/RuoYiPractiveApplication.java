@@ -9,11 +9,11 @@ import org.springframework.cloud.client.SpringCloudApplication;
 //@EnableCustomSwagger2
 @EnableRyFeignClients
 @SpringCloudApplication
-public class RuoYiMinioApplication {
+public class RuoYiPractiveApplication {
     public static void main(String[] args)
     {
-        SpringApplication.run(RuoYiMinioApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  Minio模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
+        SpringApplication.run(RuoYiPractiveApplication.class, args);
+        System.out.println("(♥◠‿◠)ﾉﾞ  Practive模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
                 " .-------.       ____     __        \n" +
                 " |  _ _   \\      \\   \\   /  /    \n" +
                 " | ( ' )  |       \\  _. /  '       \n" +

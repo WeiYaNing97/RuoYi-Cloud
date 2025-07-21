@@ -2,13 +2,15 @@ package com.ruoyi.minio.mapper;
 
 import java.util.List;
 import com.ruoyi.minio.domain.MinioRecord;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * minio操作记录Mapper接口
  * 
  * @author ruoyi
- * @date 2025-07-20
+ * @date 2025-07-21
  */
+@Mapper
 public interface MinioRecordMapper 
 {
     /**

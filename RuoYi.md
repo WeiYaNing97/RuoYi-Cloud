@@ -40,6 +40,8 @@ com.ruoyi
 ├── ruoyi-mq              // 消息队列模块
 │       └── ruoyi-activemq                            // activemq[9601]
 │       └── ruoyi-rabbitmq                            // rabbitmq[9602]
+├── ruoyi-practice        // minio测试模块
+│       └── ruoyi-minio                               // minio[9701]
 ├──pom.xml                // 公共依赖
 ~~~
 

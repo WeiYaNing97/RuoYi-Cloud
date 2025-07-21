@@ -26,7 +26,7 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
  * minio操作记录Controller
  * 
  * @author ruoyi
- * @date 2025-07-20
+ * @date 2025-07-21
  */
 @RestController
 @RequestMapping("/minio_record")
@@ -38,7 +38,7 @@ public class MinioRecordController extends BaseController
     /**
      * 查询minio操作记录列表
      */
-    @RequiresPermissions("minio:minio_record:list")
+    @RequiresPermissions("practice:minio_record:list")
     @GetMapping("/list")
     public TableDataInfo list(MinioRecord minioRecord)
     {
@@ -50,7 +50,7 @@ public class MinioRecordController extends BaseController
     /**
      * 导出minio操作记录列表
      */
-    @RequiresPermissions("minio:minio_record:export")
+    @RequiresPermissions("practice:minio_record:export")
     @Log(title = "minio操作记录", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MinioRecord minioRecord)
@@ -63,7 +63,7 @@ public class MinioRecordController extends BaseController
     /**
      * 获取minio操作记录详细信息
      */
-    @RequiresPermissions("minio:minio_record:query")
+    @RequiresPermissions("practice:minio_record:query")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
@@ -73,7 +73,7 @@ public class MinioRecordController extends BaseController
     /**
      * 新增minio操作记录
      */
-    @RequiresPermissions("minio:minio_record:add")
+    @RequiresPermissions("practice:minio_record:add")
     @Log(title = "minio操作记录", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MinioRecord minioRecord)
@@ -84,7 +84,7 @@ public class MinioRecordController extends BaseController
     /**
      * 修改minio操作记录
      */
-    @RequiresPermissions("minio:minio_record:edit")
+    @RequiresPermissions("practice:minio_record:edit")
     @Log(title = "minio操作记录", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MinioRecord minioRecord)
@@ -95,7 +95,7 @@ public class MinioRecordController extends BaseController
     /**
      * 删除minio操作记录
      */
-    @RequiresPermissions("minio:minio_record:remove")
+    @RequiresPermissions("practice:minio_record:remove")
     @Log(title = "minio操作记录", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)

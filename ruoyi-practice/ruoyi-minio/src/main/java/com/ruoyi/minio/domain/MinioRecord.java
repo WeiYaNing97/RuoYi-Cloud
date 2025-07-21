@@ -9,7 +9,7 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
  * minio操作记录对象 minio_record
  * 
  * @author ruoyi
- * @date 2025-07-20
+ * @date 2025-07-21
  */
 public class MinioRecord extends BaseEntity
 {

@@ -7,7 +7,7 @@ import com.ruoyi.minio.domain.MinioRecord;
  * minio操作记录Service接口
  * 
  * @author ruoyi
- * @date 2025-07-20
+ * @date 2025-07-21
  */
 public interface IMinioRecordService 
 {

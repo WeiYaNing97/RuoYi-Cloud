@@ -31,7 +31,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['minio:minio_record:add']"
+          v-hasPermi="['practice:minio_record:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -42,7 +42,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['minio:minio_record:edit']"
+          v-hasPermi="['practice:minio_record:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -53,7 +53,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['minio:minio_record:remove']"
+          v-hasPermi="['practice:minio_record:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -63,7 +63,7 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['minio:minio_record:export']"
+          v-hasPermi="['practice:minio_record:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
@@ -82,14 +82,14 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['minio:minio_record:edit']"
+            v-hasPermi="['practice:minio_record:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['minio:minio_record:remove']"
+            v-hasPermi="['practice:minio_record:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import { listMinio_record, getMinio_record, delMinio_record, addMinio_record, updateMinio_record } from "@/api/minio/minio_record"
+import { listMinio_record, getMinio_record, delMinio_record, addMinio_record, updateMinio_record } from "@/api/practice/minio_record"
 
 export default {
   name: "Minio_record",
@@ -263,7 +263,7 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('minio/minio_record/export', {
+      this.download('practice/minio_record/export', {
         ...this.queryParams
       }, `minio_record_${new Date().getTime()}.xlsx`)
     }
