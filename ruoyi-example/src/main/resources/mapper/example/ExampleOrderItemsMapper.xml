@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.example.mapper.ExampleOrderItemsMapper">
+    
+    <resultMap type="ExampleOrderItems" id="ExampleOrderItemsResult">
+        <result property="exampleId"    column="example_id"    />
+        <result property="exampleOrderId"    column="example_order_id"    />
+        <result property="exampleProductId"    column="example_product_id"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="unitPrice"    column="unit_price"    />
+        <result property="totalPrice"    column="total_price"    />
+        <result property="productName"    column="product_name"    />
+        <result property="sku"    column="sku"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectExampleOrderItemsVo">
+        select example_id, example_order_id, example_product_id, quantity, unit_price, total_price, product_name, sku, status from example_order_items
+    </sql>
+
+    <select id="selectExampleOrderItemsList" parameterType="ExampleOrderItems" resultMap="ExampleOrderItemsResult">
+        <include refid="selectExampleOrderItemsVo"/>
+        <where>  
+            <if test="exampleOrderId != null "> and example_order_id = #{exampleOrderId}</if>
+            <if test="exampleProductId != null "> and example_product_id = #{exampleProductId}</if>
+            <if test="quantity != null "> and quantity = #{quantity}</if>
+            <if test="unitPrice != null "> and unit_price = #{unitPrice}</if>
+            <if test="totalPrice != null "> and total_price = #{totalPrice}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectExampleOrderItemsByExampleId" parameterType="Long" resultMap="ExampleOrderItemsResult">
+        <include refid="selectExampleOrderItemsVo"/>
+        where example_id = #{exampleId}
+    </select>
+
+    <insert id="insertExampleOrderItems" parameterType="ExampleOrderItems" useGeneratedKeys="true" keyProperty="exampleId">
+        insert into example_order_items
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="exampleOrderId != null">example_order_id,</if>
+            <if test="exampleProductId != null">example_product_id,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="unitPrice != null">unit_price,</if>
+            <if test="totalPrice != null">total_price,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="sku != null">sku,</if>
+            <if test="status != null and status != ''">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="exampleOrderId != null">#{exampleOrderId},</if>
+            <if test="exampleProductId != null">#{exampleProductId},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="unitPrice != null">#{unitPrice},</if>
+            <if test="totalPrice != null">#{totalPrice},</if>
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="sku != null">#{sku},</if>
+            <if test="status != null and status != ''">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateExampleOrderItems" parameterType="ExampleOrderItems">
+        update example_order_items
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="exampleOrderId != null">example_order_id = #{exampleOrderId},</if>
+            <if test="exampleProductId != null">example_product_id = #{exampleProductId},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="unitPrice != null">unit_price = #{unitPrice},</if>
+            <if test="totalPrice != null">total_price = #{totalPrice},</if>
+            <if test="productName != null and productName != ''">product_name = #{productName},</if>
+            <if test="sku != null">sku = #{sku},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+        </trim>
+        where example_id = #{exampleId}
+    </update>
+
+    <delete id="deleteExampleOrderItemsByExampleId" parameterType="Long">
+        delete from example_order_items where example_id = #{exampleId}
+    </delete>
+
+    <delete id="deleteExampleOrderItemsByExampleIds" parameterType="String">
+        delete from example_order_items where example_id in 
+        <foreach item="exampleId" collection="array" open="(" separator="," close=")">
+            #{exampleId}
+        </foreach>
+    </delete>
+</mapper>

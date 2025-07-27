@@ -264,6 +264,7 @@
         <module>ruoyi-common</module>
         <module>ruoyi-mq</module>
         <module>ruoyi-practice</module>
+        <module>ruoyi-example</module>
     </modules>
     <packaging>pom</packaging>
 

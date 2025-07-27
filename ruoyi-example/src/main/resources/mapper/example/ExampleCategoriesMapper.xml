@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.example.mapper.ExampleCategoriesMapper">
+    
+    <resultMap type="ExampleCategories" id="ExampleCategoriesResult">
+        <result property="exampleId"    column="example_id"    />
+        <result property="categoryName"    column="category_name"    />
+        <result property="description"    column="description"    />
+        <result property="exampleParentId"    column="example_parent_id"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+    </resultMap>
+
+    <sql id="selectExampleCategoriesVo">
+        select example_id, category_name, description, example_parent_id, created_at, updated_at from example_categories
+    </sql>
+
+    <select id="selectExampleCategoriesList" parameterType="ExampleCategories" resultMap="ExampleCategoriesResult">
+        <include refid="selectExampleCategoriesVo"/>
+        <where>  
+            <if test="categoryName != null  and categoryName != ''"> and category_name like concat('%', #{categoryName}, '%')</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="exampleParentId != null "> and example_parent_id = #{exampleParentId}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectExampleCategoriesByExampleId" parameterType="Long" resultMap="ExampleCategoriesResult">
+        <include refid="selectExampleCategoriesVo"/>
+        where example_id = #{exampleId}
+    </select>
+
+    <insert id="insertExampleCategories" parameterType="ExampleCategories" useGeneratedKeys="true" keyProperty="exampleId">
+        insert into example_categories
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="categoryName != null and categoryName != ''">category_name,</if>
+            <if test="description != null">description,</if>
+            <if test="exampleParentId != null">example_parent_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="categoryName != null and categoryName != ''">#{categoryName},</if>
+            <if test="description != null">#{description},</if>
+            <if test="exampleParentId != null">#{exampleParentId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateExampleCategories" parameterType="ExampleCategories">
+        update example_categories
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="categoryName != null and categoryName != ''">category_name = #{categoryName},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="exampleParentId != null">example_parent_id = #{exampleParentId},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where example_id = #{exampleId}
+    </update>
+
+    <delete id="deleteExampleCategoriesByExampleId" parameterType="Long">
+        delete from example_categories where example_id = #{exampleId}
+    </delete>
+
+    <delete id="deleteExampleCategoriesByExampleIds" parameterType="String">
+        delete from example_categories where example_id in 
+        <foreach item="exampleId" collection="array" open="(" separator="," close=")">
+            #{exampleId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,19 @@
+-- example_categories
+CREATE INDEX idx_category_name ON example_categories(category_name);
+
+-- example_products
+CREATE INDEX idx_product_name ON example_products(product_name);
+CREATE INDEX idx_example_category_id ON example_products(example_category_id);
+
+-- example_users
+CREATE INDEX idx_email ON example_users(email);
+
+-- example_orders
+CREATE INDEX idx_example_user_id ON example_orders(example_user_id);
+CREATE INDEX idx_status ON example_orders(status);
+
+-- example_order_items
+CREATE INDEX idx_example_order_id_product_id ON example_order_items(example_order_id, example_product_id);
+
+-- example_payments
+CREATE INDEX idx_payment_status ON example_payments(payment_status);

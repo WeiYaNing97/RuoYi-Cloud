@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.example.mapper.ExampleOrdersMapper">
+    
+    <resultMap type="ExampleOrders" id="ExampleOrdersResult">
+        <result property="exampleId"    column="example_id"    />
+        <result property="exampleUserId"    column="example_user_id"    />
+        <result property="orderDate"    column="order_date"    />
+        <result property="totalAmount"    column="total_amount"    />
+        <result property="status"    column="status"    />
+        <result property="shippingAddress"    column="shipping_address"    />
+        <result property="shippingMethod"    column="shipping_method"    />
+        <result property="paymentMethod"    column="payment_method"    />
+        <result property="trackingNumber"    column="tracking_number"    />
+        <result property="remark"    column="remark"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+    </resultMap>
+
+    <sql id="selectExampleOrdersVo">
+        select example_id, example_user_id, order_date, total_amount, status, shipping_address, shipping_method, payment_method, tracking_number, remark, created_at, updated_at from example_orders
+    </sql>
+
+    <select id="selectExampleOrdersList" parameterType="ExampleOrders" resultMap="ExampleOrdersResult">
+        <include refid="selectExampleOrdersVo"/>
+        <where>  
+            <if test="exampleUserId != null "> and example_user_id = #{exampleUserId}</if>
+            <if test="orderDate != null "> and order_date = #{orderDate}</if>
+            <if test="totalAmount != null "> and total_amount = #{totalAmount}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="shippingAddress != null  and shippingAddress != ''"> and shipping_address = #{shippingAddress}</if>
+            <if test="shippingMethod != null  and shippingMethod != ''"> and shipping_method = #{shippingMethod}</if>
+            <if test="paymentMethod != null  and paymentMethod != ''"> and payment_method = #{paymentMethod}</if>
+            <if test="trackingNumber != null  and trackingNumber != ''"> and tracking_number = #{trackingNumber}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectExampleOrdersByExampleId" parameterType="Long" resultMap="ExampleOrdersResult">
+        <include refid="selectExampleOrdersVo"/>
+        where example_id = #{exampleId}
+    </select>
+
+    <insert id="insertExampleOrders" parameterType="ExampleOrders" useGeneratedKeys="true" keyProperty="exampleId">
+        insert into example_orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="exampleUserId != null">example_user_id,</if>
+            <if test="orderDate != null">order_date,</if>
+            <if test="totalAmount != null">total_amount,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="shippingAddress != null and shippingAddress != ''">shipping_address,</if>
+            <if test="shippingMethod != null">shipping_method,</if>
+            <if test="paymentMethod != null">payment_method,</if>
+            <if test="trackingNumber != null">tracking_number,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="exampleUserId != null">#{exampleUserId},</if>
+            <if test="orderDate != null">#{orderDate},</if>
+            <if test="totalAmount != null">#{totalAmount},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="shippingAddress != null and shippingAddress != ''">#{shippingAddress},</if>
+            <if test="shippingMethod != null">#{shippingMethod},</if>
+            <if test="paymentMethod != null">#{paymentMethod},</if>
+            <if test="trackingNumber != null">#{trackingNumber},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateExampleOrders" parameterType="ExampleOrders">
+        update example_orders
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="exampleUserId != null">example_user_id = #{exampleUserId},</if>
+            <if test="orderDate != null">order_date = #{orderDate},</if>
+            <if test="totalAmount != null">total_amount = #{totalAmount},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="shippingAddress != null and shippingAddress != ''">shipping_address = #{shippingAddress},</if>
+            <if test="shippingMethod != null">shipping_method = #{shippingMethod},</if>
+            <if test="paymentMethod != null">payment_method = #{paymentMethod},</if>
+            <if test="trackingNumber != null">tracking_number = #{trackingNumber},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where example_id = #{exampleId}
+    </update>
+
+    <delete id="deleteExampleOrdersByExampleId" parameterType="Long">
+        delete from example_orders where example_id = #{exampleId}
+    </delete>
+
+    <delete id="deleteExampleOrdersByExampleIds" parameterType="String">
+        delete from example_orders where example_id in 
+        <foreach item="exampleId" collection="array" open="(" separator="," close=")">
+            #{exampleId}
+        </foreach>
+    </delete>
+</mapper>
