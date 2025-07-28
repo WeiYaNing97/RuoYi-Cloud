@@ -1,6 +1,8 @@
 package com.ruoyi.example.service.impl;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.example.mapper.ExampleUsersMapper;
@@ -40,7 +42,10 @@ public class ExampleUsersServiceImpl implements IExampleUsersService
     @Override
     public List<ExampleUsers> selectExampleUsersList(ExampleUsers exampleUsers)
     {
-        return exampleUsersMapper.selectExampleUsersList(exampleUsers);
+        //return exampleUsersMapper.selectExampleUsersList(exampleUsers);
+        LambdaQueryWrapper queryWrapper = new LambdaQueryWrapper<ExampleUsers>();
+        List list = exampleUsersMapper.selectList(queryWrapper);
+        return list;
     }
 
     /**

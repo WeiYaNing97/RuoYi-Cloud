@@ -38,6 +38,7 @@
         <tomcat.version>9.0.106</tomcat.version>
         <logback.version>1.2.13</logback.version>
         <spring-framework.version>5.3.39</spring-framework.version>
+        <mybatis-plus-version>3.5.5</mybatis-plus-version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -250,6 +251,12 @@
                 <groupId>com.ruoyi</groupId>
                 <artifactId>ruoyi-api-system</artifactId>
                 <version>${ruoyi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-version}</version>
             </dependency>
 
         </dependencies>

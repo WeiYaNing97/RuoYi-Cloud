@@ -1,7 +1,10 @@
 package com.ruoyi.example.mapper;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruoyi.example.domain.ExampleUsers;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 存储用户的信息Mapper接口
@@ -9,7 +12,8 @@ import com.ruoyi.example.domain.ExampleUsers;
  * @author ruoyi
  * @date 2025-07-27
  */
-public interface ExampleUsersMapper 
+@Mapper
+public interface ExampleUsersMapper extends BaseMapper<ExampleUsers>
 {
     /**
      * 查询存储用户的信息
