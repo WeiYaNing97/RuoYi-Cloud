@@ -1,7 +1,10 @@
 package com.ruoyi.example.domain;
 
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.annotation.Excel;
@@ -13,7 +16,9 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
  * @author ruoyi
  * @date 2025-07-27
  */
-public class ExampleUsers extends BaseEntity
+@Data
+@TableName("example_users")
+public class ExampleUsers
 {
     private static final long serialVersionUID = 1L;
 
@@ -62,131 +67,4 @@ public class ExampleUsers extends BaseEntity
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "记录最后更新时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date updatedAt;
-
-    public void setExampleId(Long exampleId) 
-    {
-        this.exampleId = exampleId;
-    }
-
-    public Long getExampleId() 
-    {
-        return exampleId;
-    }
-
-    public void setUsername(String username) 
-    {
-        this.username = username;
-    }
-
-    public String getUsername() 
-    {
-        return username;
-    }
-
-    public void setEmail(String email) 
-    {
-        this.email = email;
-    }
-
-    public String getEmail() 
-    {
-        return email;
-    }
-
-    public void setPasswordHash(String passwordHash) 
-    {
-        this.passwordHash = passwordHash;
-    }
-
-    public String getPasswordHash() 
-    {
-        return passwordHash;
-    }
-
-    public void setPhone(String phone) 
-    {
-        this.phone = phone;
-    }
-
-    public String getPhone() 
-    {
-        return phone;
-    }
-
-    public void setAvatarUrl(String avatarUrl) 
-    {
-        this.avatarUrl = avatarUrl;
-    }
-
-    public String getAvatarUrl() 
-    {
-        return avatarUrl;
-    }
-
-    public void setRole(String role) 
-    {
-        this.role = role;
-    }
-
-    public String getRole() 
-    {
-        return role;
-    }
-
-    public void setIsActive(Integer isActive) 
-    {
-        this.isActive = isActive;
-    }
-
-    public Integer getIsActive() 
-    {
-        return isActive;
-    }
-
-    public void setLastLogin(Date lastLogin) 
-    {
-        this.lastLogin = lastLogin;
-    }
-
-    public Date getLastLogin() 
-    {
-        return lastLogin;
-    }
-
-    public void setCreatedAt(Date createdAt) 
-    {
-        this.createdAt = createdAt;
-    }
-
-    public Date getCreatedAt() 
-    {
-        return createdAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) 
-    {
-        this.updatedAt = updatedAt;
-    }
-
-    public Date getUpdatedAt() 
-    {
-        return updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("exampleId", getExampleId())
-            .append("username", getUsername())
-            .append("email", getEmail())
-            .append("passwordHash", getPasswordHash())
-            .append("phone", getPhone())
-            .append("avatarUrl", getAvatarUrl())
-            .append("role", getRole())
-            .append("isActive", getIsActive())
-            .append("lastLogin", getLastLogin())
-            .append("createdAt", getCreatedAt())
-            .append("updatedAt", getUpdatedAt())
-            .toString();
-    }
 }

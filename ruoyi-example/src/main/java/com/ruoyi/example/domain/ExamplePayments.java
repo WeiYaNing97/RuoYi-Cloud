@@ -3,6 +3,7 @@ package com.ruoyi.example.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.annotation.Excel;
@@ -14,7 +15,8 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
  * @author ruoyi
  * @date 2025-07-27
  */
-public class ExamplePayments extends BaseEntity
+@Data
+public class ExamplePayments
 {
     private static final long serialVersionUID = 1L;
 
@@ -54,108 +56,4 @@ public class ExamplePayments extends BaseEntity
     @Excel(name = "额外信息")
     private String extraInfo;
 
-    public void setExampleId(Long exampleId) 
-    {
-        this.exampleId = exampleId;
-    }
-
-    public Long getExampleId() 
-    {
-        return exampleId;
-    }
-
-    public void setExampleOrderId(Long exampleOrderId) 
-    {
-        this.exampleOrderId = exampleOrderId;
-    }
-
-    public Long getExampleOrderId() 
-    {
-        return exampleOrderId;
-    }
-
-    public void setPaymentMethod(String paymentMethod) 
-    {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public String getPaymentMethod() 
-    {
-        return paymentMethod;
-    }
-
-    public void setAmount(BigDecimal amount) 
-    {
-        this.amount = amount;
-    }
-
-    public BigDecimal getAmount() 
-    {
-        return amount;
-    }
-
-    public void setPaymentStatus(String paymentStatus) 
-    {
-        this.paymentStatus = paymentStatus;
-    }
-
-    public String getPaymentStatus() 
-    {
-        return paymentStatus;
-    }
-
-    public void setPaymentDate(Date paymentDate) 
-    {
-        this.paymentDate = paymentDate;
-    }
-
-    public Date getPaymentDate() 
-    {
-        return paymentDate;
-    }
-
-    public void setTransactionId(String transactionId) 
-    {
-        this.transactionId = transactionId;
-    }
-
-    public String getTransactionId() 
-    {
-        return transactionId;
-    }
-
-    public void setPaymentChannel(String paymentChannel) 
-    {
-        this.paymentChannel = paymentChannel;
-    }
-
-    public String getPaymentChannel() 
-    {
-        return paymentChannel;
-    }
-
-    public void setExtraInfo(String extraInfo) 
-    {
-        this.extraInfo = extraInfo;
-    }
-
-    public String getExtraInfo() 
-    {
-        return extraInfo;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("exampleId", getExampleId())
-            .append("exampleOrderId", getExampleOrderId())
-            .append("paymentMethod", getPaymentMethod())
-            .append("amount", getAmount())
-            .append("paymentStatus", getPaymentStatus())
-            .append("paymentDate", getPaymentDate())
-            .append("transactionId", getTransactionId())
-            .append("paymentChannel", getPaymentChannel())
-            .append("extraInfo", getExtraInfo())
-            .toString();
-    }
 }

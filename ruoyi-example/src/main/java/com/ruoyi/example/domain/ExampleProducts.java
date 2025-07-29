@@ -2,7 +2,10 @@ package com.ruoyi.example.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.annotation.Excel;
@@ -14,7 +17,9 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
  * @author ruoyi
  * @date 2025-07-27
  */
-public class ExampleProducts extends BaseEntity
+@Data
+@TableName("example_products")
+public class ExampleProducts
 {
     private static final long serialVersionUID = 1L;
 
@@ -63,130 +68,4 @@ public class ExampleProducts extends BaseEntity
     @Excel(name = "记录最后更新时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date updatedAt;
 
-    public void setExampleId(Long exampleId) 
-    {
-        this.exampleId = exampleId;
-    }
-
-    public Long getExampleId() 
-    {
-        return exampleId;
-    }
-
-    public void setProductName(String productName) 
-    {
-        this.productName = productName;
-    }
-
-    public String getProductName() 
-    {
-        return productName;
-    }
-
-    public void setDescription(String description) 
-    {
-        this.description = description;
-    }
-
-    public String getDescription() 
-    {
-        return description;
-    }
-
-    public void setPrice(BigDecimal price) 
-    {
-        this.price = price;
-    }
-
-    public BigDecimal getPrice() 
-    {
-        return price;
-    }
-
-    public void setExampleCategoryId(Long exampleCategoryId) 
-    {
-        this.exampleCategoryId = exampleCategoryId;
-    }
-
-    public Long getExampleCategoryId() 
-    {
-        return exampleCategoryId;
-    }
-
-    public void setStockQuantity(Long stockQuantity) 
-    {
-        this.stockQuantity = stockQuantity;
-    }
-
-    public Long getStockQuantity() 
-    {
-        return stockQuantity;
-    }
-
-    public void setStatus(String status) 
-    {
-        this.status = status;
-    }
-
-    public String getStatus() 
-    {
-        return status;
-    }
-
-    public void setSku(String sku) 
-    {
-        this.sku = sku;
-    }
-
-    public String getSku() 
-    {
-        return sku;
-    }
-
-    public void setImageUrl(String imageUrl) 
-    {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getImageUrl() 
-    {
-        return imageUrl;
-    }
-
-    public void setCreatedAt(Date createdAt) 
-    {
-        this.createdAt = createdAt;
-    }
-
-    public Date getCreatedAt() 
-    {
-        return createdAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) 
-    {
-        this.updatedAt = updatedAt;
-    }
-
-    public Date getUpdatedAt() 
-    {
-        return updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("exampleId", getExampleId())
-            .append("productName", getProductName())
-            .append("description", getDescription())
-            .append("price", getPrice())
-            .append("exampleCategoryId", getExampleCategoryId())
-            .append("stockQuantity", getStockQuantity())
-            .append("status", getStatus())
-            .append("sku", getSku())
-            .append("imageUrl", getImageUrl())
-            .append("createdAt", getCreatedAt())
-            .append("updatedAt", getUpdatedAt())
-            .toString();
-    }
 }
