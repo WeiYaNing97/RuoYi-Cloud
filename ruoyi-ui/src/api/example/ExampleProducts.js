@@ -42,3 +42,12 @@ export function delExampleProducts(exampleId) {
     method: 'delete'
   })
 }
+
+
+// 删除存储商品的信息
+export function exampleCategoriesList() {
+  return request({
+    url: '/example/ExampleCategories/list',
+    method: 'get'
+  })
+}

@@ -17,14 +17,16 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="所属类别ID" prop="exampleCategoryId">
-        <el-input
-          v-model="queryParams.exampleCategoryId"
-          placeholder="请输入所属类别ID"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+
+      <el-form-item label="所属类别" prop="exampleCategoryId">
+        <el-select v-model="queryParams.exampleCategoryId" placeholder="请选择类别">
+          <el-option v-for="item in exampleCategoryIds"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"/>
+        </el-select>
       </el-form-item>
+
       <el-form-item label="库存数量" prop="stockQuantity">
         <el-input
           v-model="queryParams.stockQuantity"
@@ -43,18 +45,18 @@
       </el-form-item>
       <el-form-item label="记录创建时间" prop="createdAt">
         <el-date-picker clearable
-          v-model="queryParams.createdAt"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择记录创建时间">
+                        v-model="queryParams.createdAt"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="请选择记录创建时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="记录最后更新时间" prop="updatedAt">
         <el-date-picker clearable
-          v-model="queryParams.updatedAt"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择记录最后更新时间">
+                        v-model="queryParams.updatedAt"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="请选择记录最后更新时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item>
@@ -72,7 +74,8 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['example:ExampleProducts:add']"
-        >新增</el-button>
+        >新增
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -83,7 +86,8 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['example:ExampleProducts:edit']"
-        >修改</el-button>
+        >修改
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -94,7 +98,8 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['example:ExampleProducts:remove']"
-        >删除</el-button>
+        >删除
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -104,22 +109,30 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['example:ExampleProducts:export']"
-        >导出</el-button>
+        >导出
+        </el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="ExampleProductsList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="商品的唯一标识符" align="center" prop="exampleId" />
-      <el-table-column label="商品名称" align="center" prop="productName" />
-      <el-table-column label="商品描述" align="center" prop="description" />
-      <el-table-column label="商品价格" align="center" prop="price" />
-      <el-table-column label="所属类别ID" align="center" prop="exampleCategoryId" />
-      <el-table-column label="库存数量" align="center" prop="stockQuantity" />
-      <el-table-column label="商品状态" align="center" prop="status" />
-      <el-table-column label="商品库存保有单位(SKU)" align="center" prop="sku" />
-      <el-table-column label="商品图片URL" align="center" prop="imageUrl" />
+      <el-table-column type="selection" width="55" align="center"/>
+      <el-table-column label="商品的唯一标识符" align="center" prop="exampleId"/>
+      <el-table-column label="商品名称" align="center" prop="productName"/>
+      <el-table-column label="商品描述" align="center" prop="description"/>
+      <el-table-column label="商品价格" align="center" prop="price"/>
+
+
+      <el-table-column label="所属类别" align="center" prop="exampleCategoryId">
+        <template slot-scope="scope">
+          {{ getCategoryLabel(scope.row.exampleCategoryId) }}
+        </template>
+      </el-table-column>
+
+      <el-table-column label="库存数量" align="center" prop="stockQuantity"/>
+      <el-table-column label="商品状态" align="center" prop="status"/>
+      <el-table-column label="商品库存保有单位(SKU)" align="center" prop="sku"/>
+      <el-table-column label="商品图片URL" align="center" prop="imageUrl"/>
       <el-table-column label="记录创建时间" align="center" prop="createdAt" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createdAt, '{y}-{m}-{d}') }}</span>
@@ -138,18 +151,20 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['example:ExampleProducts:edit']"
-          >修改</el-button>
+          >修改
+          </el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['example:ExampleProducts:remove']"
-          >删除</el-button>
+          >删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -162,40 +177,46 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="商品名称" prop="productName">
-          <el-input v-model="form.productName" placeholder="请输入商品名称" />
+          <el-input v-model="form.productName" placeholder="请输入商品名称"/>
         </el-form-item>
         <el-form-item label="商品描述" prop="description">
-          <el-input v-model="form.description" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.description" type="textarea" placeholder="请输入内容"/>
         </el-form-item>
         <el-form-item label="商品价格" prop="price">
-          <el-input v-model="form.price" placeholder="请输入商品价格" />
+          <el-input v-model="form.price" placeholder="请输入商品价格"/>
         </el-form-item>
-        <el-form-item label="所属类别ID" prop="exampleCategoryId">
-          <el-input v-model="form.exampleCategoryId" placeholder="请输入所属类别ID" />
+        <!-- 修改成下拉框选择      -->
+        <el-form-item label="所属类别" prop="exampleCategoryId">
+          <el-select v-model="form.exampleCategoryId" placeholder="请下拉选择所属类别" clearable
+                     :style="{width: '100%'}" @visible-change="getExampleCategories">
+            <el-option v-for="(item, index) in exampleCategoryIds" :key="index" :label="item.label"
+                       :value="item.value" :disabled="item.disabled"></el-option>
+          </el-select>
         </el-form-item>
+
         <el-form-item label="库存数量" prop="stockQuantity">
-          <el-input v-model="form.stockQuantity" placeholder="请输入库存数量" />
+          <el-input v-model="form.stockQuantity" placeholder="请输入库存数量"/>
         </el-form-item>
         <el-form-item label="商品库存保有单位(SKU)" prop="sku">
-          <el-input v-model="form.sku" placeholder="请输入商品库存保有单位(SKU)" />
+          <el-input v-model="form.sku" placeholder="请输入商品库存保有单位(SKU)"/>
         </el-form-item>
         <el-form-item label="商品图片URL" prop="imageUrl">
-          <el-input v-model="form.imageUrl" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.imageUrl" type="textarea" placeholder="请输入内容"/>
         </el-form-item>
         <el-form-item label="记录创建时间" prop="createdAt">
           <el-date-picker clearable
-            v-model="form.createdAt"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择记录创建时间">
+                          v-model="form.createdAt"
+                          type="date"
+                          value-format="yyyy-MM-dd"
+                          placeholder="请选择记录创建时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="记录最后更新时间" prop="updatedAt">
           <el-date-picker clearable
-            v-model="form.updatedAt"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择记录最后更新时间">
+                          v-model="form.updatedAt"
+                          type="date"
+                          value-format="yyyy-MM-dd"
+                          placeholder="请选择记录最后更新时间">
           </el-date-picker>
         </el-form-item>
       </el-form>
@@ -208,7 +229,15 @@
 </template>
 
 <script>
-import { listExampleProducts, getExampleProducts, delExampleProducts, addExampleProducts, updateExampleProducts } from "@/api/example/ExampleProducts"
+import {
+  listExampleProducts,
+  getExampleProducts,
+  delExampleProducts,
+  addExampleProducts,
+  updateExampleProducts,
+  exampleCategoriesList
+} from "@/api/example/ExampleProducts"
+import request from "@/utils/request";
 
 export default {
   name: "ExampleProducts",
@@ -252,27 +281,56 @@ export default {
       // 表单校验
       rules: {
         productName: [
-          { required: true, message: "商品名称不能为空", trigger: "blur" }
+          {required: true, message: "商品名称不能为空", trigger: "blur"}
         ],
         price: [
-          { required: true, message: "商品价格不能为空", trigger: "blur" }
+          {required: true, message: "商品价格不能为空", trigger: "blur"}
         ],
         exampleCategoryId: [
-          { required: true, message: "所属类别ID不能为空", trigger: "blur" }
+          {required: true, message: "所属类别ID不能为空", trigger: "blur"}
         ],
         stockQuantity: [
-          { required: true, message: "库存数量不能为空", trigger: "blur" }
+          {required: true, message: "库存数量不能为空", trigger: "blur"}
         ],
         status: [
-          { required: true, message: "商品状态不能为空", trigger: "change" }
+          {required: true, message: "商品状态不能为空", trigger: "change"}
         ],
-      }
+      },
+      exampleCategoryIds: [{
+        "label": "选项一",
+        "value": 1
+      }, {
+        "label": "选项二",
+        "value": 2
+      }]
     }
   },
   created() {
+    this.getExampleCategories()
     this.getList()
   },
   methods: {
+
+    // ... existing code ...
+    getCategoryLabel(id) {
+      const item = this.exampleCategoryIds.find(v => v.value === id);
+      return item ? item.label : id;
+    },
+    // ... existing code ...
+
+    getExampleCategories() {
+      exampleCategoriesList().then(response => {
+        this.exampleCategoryIds = []
+        response.rows.map(item => (this.exampleCategoryIds.push(
+          {
+            label: item.categoryName,
+            value: item.exampleId
+          }
+        )));
+      });
+    },
+
+
     /** 查询存储商品的信息列表 */
     getList() {
       this.loading = true
@@ -317,7 +375,7 @@ export default {
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.exampleId)
-      this.single = selection.length!==1
+      this.single = selection.length !== 1
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
@@ -359,12 +417,13 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const exampleIds = row.exampleId || this.ids
-      this.$modal.confirm('是否确认删除存储商品的信息编号为"' + exampleIds + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除存储商品的信息编号为"' + exampleIds + '"的数据项？').then(function () {
         return delExampleProducts(exampleIds)
       }).then(() => {
         this.getList()
         this.$modal.msgSuccess("删除成功")
-      }).catch(() => {})
+      }).catch(() => {
+      })
     },
     /** 导出按钮操作 */
     handleExport() {

@@ -1,13 +1,9 @@
 package com.ruoyi.example.controller;
 
 import java.util.List;
-import java.io.IOException;
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import com.ruoyi.example.domain.*;
-import com.ruoyi.example.mapper.ExampleUsersOrdersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,32 +34,13 @@ public class ExampleUsersController extends BaseController {
     @Autowired
     private IExampleUsersService exampleUsersService;
 
-    @Resource
-    private ExampleUsersOrdersMapper exampleUsersOrdersMapper;
-
-    public AjaxResult getExampleUsersOrdersProducts() {
-        MPJLambdaWrapper<ExampleUsersOrders> queryWrapper = new MPJLambdaWrapper<>();
-        queryWrapper.selectAll(ExampleUsersOrders.class)
-                .selectCollection(ExampleOrdersProducts.class, ExampleUsersOrders::getOrdersProductsList)
-                .selectCollection(ExampleProducts.class, ExampleOrdersProducts::getProductsList)
-                .leftJoin(ExampleOrders.class, ExampleOrders::getExampleUserId, ExampleUsers::getExampleId)
-                .leftJoin(ExampleOrderItems.class, ExampleOrderItems::getExampleOrderId, ExampleOrders::getExampleId)
-                .leftJoin(ExampleProducts.class, ExampleProducts::getExampleId, ExampleOrderItems::getExampleProductId);
-        List<ExampleUsersOrders> exampleUsersOrders = exampleUsersOrdersMapper.selectJoinList(queryWrapper);
-        return AjaxResult.success(exampleUsersOrders);
-    }
-
     /**
      * 查询存储用户的信息列表
      */
     @RequiresPermissions("example:ExampleUsers:list")
     @GetMapping("/list")
     public TableDataInfo list(ExampleUsers exampleUsers) {
-
         startPage();
-
-        getExampleUsersOrdersProducts();
-
         List<ExampleUsers> list = exampleUsersService.selectExampleUsersList(exampleUsers);
         return getDataTable(list);
     }

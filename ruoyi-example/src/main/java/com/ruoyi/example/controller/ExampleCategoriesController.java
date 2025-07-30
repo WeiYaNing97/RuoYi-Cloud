@@ -44,6 +44,7 @@ public class ExampleCategoriesController extends BaseController
     {
         startPage();
         List<ExampleCategories> list = exampleCategoriesService.selectExampleCategoriesList(exampleCategories);
+        list.stream().forEach(x -> System.err.println(x.toString()));
         return getDataTable(list);
     }
 
