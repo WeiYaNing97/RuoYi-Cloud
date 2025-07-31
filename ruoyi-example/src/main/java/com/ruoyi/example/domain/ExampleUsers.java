@@ -46,8 +46,8 @@ public class ExampleUsers
     private String avatarUrl;
 
     /** 用户角色（例如：user, admin） */
-    @Excel(name = "用户角色", readConverterExp = "例=如：user,,a=dmin")
-    private String role;
+    @Excel(name = "用户角色", readConverterExp = "例=如：user,,admin")
+    private Long role;
 
     /** 用户账户是否激活 */
     @Excel(name = "用户账户是否激活")

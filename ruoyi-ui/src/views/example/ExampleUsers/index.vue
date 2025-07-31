@@ -228,7 +228,14 @@
 
 
         <el-form-item label="用户账户是否激活" prop="isActive">
-          <el-input v-model="form.isActive" placeholder="请输入用户账户是否激活"/>
+          <el-select v-model="form.isActive" placeholder="请下拉选择用户账户是否激活" clearable
+                     :style="{width: '100%'}">
+            <el-option v-for="(item, index) in Userstate"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="用户上次登录时间" prop="lastLogin">
           <el-date-picker clearable
@@ -356,7 +363,7 @@ export default {
   methods: {
 
     getRoleLabel(id) {
-      const item = this.roleList.find(v => v.value+"" === id);
+      const item = this.roleList.find(v => v.value === id);
       return item ? item.label : id;
     },
     getUserstate(id) {

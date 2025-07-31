@@ -189,8 +189,11 @@
         <el-form-item label="所属类别" prop="exampleCategoryId">
           <el-select v-model="form.exampleCategoryId" placeholder="请下拉选择所属类别" clearable
                      :style="{width: '100%'}" @visible-change="getExampleCategories">
-            <el-option v-for="(item, index) in exampleCategoryIds" :key="index" :label="item.label"
-                       :value="item.value" :disabled="item.disabled"></el-option>
+            <el-option v-for="(item, index) in exampleCategoryIds"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled"></el-option>
           </el-select>
         </el-form-item>
 
