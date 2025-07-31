@@ -34,43 +34,43 @@
         />
       </el-form-item>
       <el-form-item label="用户角色" prop="role">
-        <el-input
-          v-model="queryParams.role"
-          placeholder="请输入用户角色"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-select v-model="queryParams.role" placeholder="请选择用户角色">
+          <el-option v-for="item in roleList"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"/>
+        </el-select>
       </el-form-item>
       <el-form-item label="用户账户是否激活" prop="isActive">
-        <el-input
-          v-model="queryParams.isActive"
-          placeholder="请输入用户账户是否激活"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-select v-model="queryParams.isActive" placeholder="请选择用户账户是否激活">
+          <el-option v-for="item in Userstate"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"/>
+        </el-select>
       </el-form-item>
       <el-form-item label="用户上次登录时间" prop="lastLogin">
         <el-date-picker clearable
-          v-model="queryParams.lastLogin"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择用户上次登录时间">
+                        v-model="queryParams.lastLogin"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="请选择用户上次登录时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="记录创建时间" prop="createdAt">
         <el-date-picker clearable
-          v-model="queryParams.createdAt"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择记录创建时间">
+                        v-model="queryParams.createdAt"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="请选择记录创建时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="记录最后更新时间" prop="updatedAt">
         <el-date-picker clearable
-          v-model="queryParams.updatedAt"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择记录最后更新时间">
+                        v-model="queryParams.updatedAt"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="请选择记录最后更新时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item>
@@ -88,7 +88,8 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['example:ExampleUsers:add']"
-        >新增</el-button>
+        >新增
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -99,7 +100,8 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['example:ExampleUsers:edit']"
-        >修改</el-button>
+        >修改
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -110,7 +112,8 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['example:ExampleUsers:remove']"
-        >删除</el-button>
+        >删除
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -120,21 +123,32 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['example:ExampleUsers:export']"
-        >导出</el-button>
+        >导出
+        </el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="ExampleUsersList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="用户的唯一标识符" align="center" prop="exampleId" />
-      <el-table-column label="用户名" align="center" prop="username" />
-      <el-table-column label="用户邮箱地址" align="center" prop="email" />
-      <el-table-column label="用户密码哈希值" align="center" prop="passwordHash" />
-      <el-table-column label="用户联系电话" align="center" prop="phone" />
-      <el-table-column label="用户头像URL" align="center" prop="avatarUrl" />
-      <el-table-column label="用户角色" align="center" prop="role" />
-      <el-table-column label="用户账户是否激活" align="center" prop="isActive" />
+      <el-table-column type="selection" width="55" align="center"/>
+      <el-table-column label="用户的唯一标识符" align="center" prop="exampleId"/>
+      <el-table-column label="用户名" align="center" prop="username"/>
+      <el-table-column label="用户邮箱地址" align="center" prop="email"/>
+      <el-table-column label="用户密码哈希值" align="center" prop="passwordHash"/>
+      <el-table-column label="用户联系电话" align="center" prop="phone"/>
+      <el-table-column label="用户头像URL" align="center" prop="avatarUrl"/>
+
+      <el-table-column label="用户角色" align="center" prop="role">
+        <template slot-scope="scope">
+          {{ getRoleLabel(scope.row.role) }}
+        </template>
+      </el-table-column>
+
+      <el-table-column label="用户账户是否激活" align="center" prop="isActive">
+        <template slot-scope="scope">
+          {{ getUserstate(scope.row.isActive) }}
+        </template>
+      </el-table-column>
       <el-table-column label="用户上次登录时间" align="center" prop="lastLogin" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.lastLogin, '{y}-{m}-{d}') }}</span>
@@ -158,18 +172,20 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['example:ExampleUsers:edit']"
-          >修改</el-button>
+          >修改
+          </el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['example:ExampleUsers:remove']"
-          >删除</el-button>
+          >删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -182,48 +198,60 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="form.username" placeholder="请输入用户名" />
+          <el-input v-model="form.username" placeholder="请输入用户名"/>
         </el-form-item>
         <el-form-item label="用户邮箱地址" prop="email">
-          <el-input v-model="form.email" placeholder="请输入用户邮箱地址" />
+          <el-input v-model="form.email" placeholder="请输入用户邮箱地址"/>
         </el-form-item>
         <el-form-item label="用户密码哈希值" prop="passwordHash">
-          <el-input v-model="form.passwordHash" placeholder="请输入用户密码哈希值" />
+          <el-input v-model="form.passwordHash" placeholder="请输入用户密码哈希值"/>
         </el-form-item>
         <el-form-item label="用户联系电话" prop="phone">
-          <el-input v-model="form.phone" placeholder="请输入用户联系电话" />
+          <el-input v-model="form.phone" placeholder="请输入用户联系电话"/>
         </el-form-item>
         <el-form-item label="用户头像URL" prop="avatarUrl">
-          <el-input v-model="form.avatarUrl" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.avatarUrl" type="textarea" placeholder="请输入内容"/>
         </el-form-item>
+
+        <!-- 修改成下拉框选择      -->
         <el-form-item label="用户角色" prop="role">
-          <el-input v-model="form.role" placeholder="请输入用户角色" />
+          <el-select v-model="form.role" placeholder="请下拉选择所属类别" clearable
+                     :style="{width: '100%'}" @visible-change="getRoleList">
+            <el-option v-for="(item, index) in roleList"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled"></el-option>
+          </el-select>
         </el-form-item>
+
+
+
         <el-form-item label="用户账户是否激活" prop="isActive">
-          <el-input v-model="form.isActive" placeholder="请输入用户账户是否激活" />
+          <el-input v-model="form.isActive" placeholder="请输入用户账户是否激活"/>
         </el-form-item>
         <el-form-item label="用户上次登录时间" prop="lastLogin">
           <el-date-picker clearable
-            v-model="form.lastLogin"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择用户上次登录时间">
+                          v-model="form.lastLogin"
+                          type="date"
+                          value-format="yyyy-MM-dd"
+                          placeholder="请选择用户上次登录时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="记录创建时间" prop="createdAt">
           <el-date-picker clearable
-            v-model="form.createdAt"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择记录创建时间">
+                          v-model="form.createdAt"
+                          type="date"
+                          value-format="yyyy-MM-dd"
+                          placeholder="请选择记录创建时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="记录最后更新时间" prop="updatedAt">
           <el-date-picker clearable
-            v-model="form.updatedAt"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择记录最后更新时间">
+                          v-model="form.updatedAt"
+                          type="date"
+                          value-format="yyyy-MM-dd"
+                          placeholder="请选择记录最后更新时间">
           </el-date-picker>
         </el-form-item>
       </el-form>
@@ -236,7 +264,15 @@
 </template>
 
 <script>
-import { listExampleUsers, getExampleUsers, delExampleUsers, addExampleUsers, updateExampleUsers } from "@/api/example/ExampleUsers"
+import {
+  listExampleUsers,
+  getExampleUsers,
+  delExampleUsers,
+  addExampleUsers,
+  updateExampleUsers,
+  listRole
+} from "@/api/example/ExampleUsers"
+
 
 export default {
   name: "ExampleUsers",
@@ -280,27 +316,66 @@ export default {
       // 表单校验
       rules: {
         username: [
-          { required: true, message: "用户名不能为空", trigger: "blur" }
+          {required: true, message: "用户名不能为空", trigger: "blur"}
         ],
         email: [
-          { required: true, message: "用户邮箱地址不能为空", trigger: "blur" }
+          {required: true, message: "用户邮箱地址不能为空", trigger: "blur"}
         ],
         passwordHash: [
-          { required: true, message: "用户密码哈希值不能为空", trigger: "blur" }
+          {required: true, message: "用户密码哈希值不能为空", trigger: "blur"}
         ],
         role: [
-          { required: true, message: "用户角色不能为空", trigger: "blur" }
+          {required: true, message: "用户角色不能为空", trigger: "blur"}
         ],
         isActive: [
-          { required: true, message: "用户账户是否激活不能为空", trigger: "blur" }
+          {required: true, message: "用户账户是否激活不能为空", trigger: "blur"}
         ],
+      },
+      /* 角色数组 */
+      roleList: [{
+        "label": "选项一",
+        "value": 1
+      }, {
+        "label": "选项二",
+        "value": 2
+      }],
+      Userstate:[{
+        "label": "激活",
+        "value": 1
+      }, {
+        "label": "未激活",
+        "value": 0
       }
+      ]
     }
   },
   created() {
+    this.getRoleList()
     this.getList()
   },
   methods: {
+
+    getRoleLabel(id) {
+      const item = this.roleList.find(v => v.value+"" === id);
+      return item ? item.label : id;
+    },
+    getUserstate(id) {
+      return id === 1 ? "激活" : "未激活";
+    },
+
+    /** 获取角色信息 */
+    getRoleList() {
+      listRole().then(response => {
+        this.roleList = []
+          response.rows.map(item => (this.roleList.push(
+            {
+              label: item.roleName,
+              value: item.roleId
+            }))
+          )
+        }
+      )
+    },
     /** 查询存储用户的信息列表 */
     getList() {
       this.loading = true
@@ -345,7 +420,7 @@ export default {
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.exampleId)
-      this.single = selection.length!==1
+      this.single = selection.length !== 1
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
@@ -387,12 +462,13 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const exampleIds = row.exampleId || this.ids
-      this.$modal.confirm('是否确认删除存储用户的信息编号为"' + exampleIds + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除存储用户的信息编号为"' + exampleIds + '"的数据项？').then(function () {
         return delExampleUsers(exampleIds)
       }).then(() => {
         this.getList()
         this.$modal.msgSuccess("删除成功")
-      }).catch(() => {})
+      }).catch(() => {
+      })
     },
     /** 导出按钮操作 */
     handleExport() {

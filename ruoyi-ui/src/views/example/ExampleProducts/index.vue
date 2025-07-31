@@ -311,12 +311,10 @@ export default {
   },
   methods: {
 
-    // ... existing code ...
     getCategoryLabel(id) {
       const item = this.exampleCategoryIds.find(v => v.value === id);
       return item ? item.label : id;
     },
-    // ... existing code ...
 
     getExampleCategories() {
       exampleCategoriesList().then(response => {
