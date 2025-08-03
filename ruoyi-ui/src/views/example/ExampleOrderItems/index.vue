@@ -72,7 +72,8 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['example:ExampleOrderItems:add']"
-        >新增</el-button>
+        >新增
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -83,7 +84,8 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['example:ExampleOrderItems:edit']"
-        >修改</el-button>
+        >修改
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -94,7 +96,8 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['example:ExampleOrderItems:remove']"
-        >删除</el-button>
+        >删除
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -104,22 +107,23 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['example:ExampleOrderItems:export']"
-        >导出</el-button>
+        >导出
+        </el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="ExampleOrderItemsList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="订单项的唯一标识符" align="center" prop="exampleId" />
-      <el-table-column label="关联订单的ID" align="center" prop="exampleOrderId" />
-      <el-table-column label="商品的ID" align="center" prop="exampleProductId" />
-      <el-table-column label="商品数量" align="center" prop="quantity" />
-      <el-table-column label="单价" align="center" prop="unitPrice" />
-      <el-table-column label="总价" align="center" prop="totalPrice" />
-      <el-table-column label="商品名称" align="center" prop="productName" />
-      <el-table-column label="商品库存保有单位(SKU)" align="center" prop="sku" />
-      <el-table-column label="订单项状态" align="center" prop="status" />
+      <el-table-column type="selection" width="55" align="center"/>
+      <el-table-column label="订单项的唯一标识符" align="center" prop="exampleId"/>
+      <el-table-column label="关联订单的ID" align="center" prop="exampleOrderId"/>
+      <el-table-column label="商品的ID" align="center" prop="exampleProductId"/>
+      <el-table-column label="商品数量" align="center" prop="quantity"/>
+      <el-table-column label="单价" align="center" prop="unitPrice"/>
+      <el-table-column label="总价" align="center" prop="totalPrice"/>
+      <el-table-column label="商品名称" align="center" prop="productName"/>
+      <el-table-column label="商品库存保有单位(SKU)" align="center" prop="sku"/>
+      <el-table-column label="订单项状态" align="center" prop="status"/>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -128,18 +132,20 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['example:ExampleOrderItems:edit']"
-          >修改</el-button>
+          >修改
+          </el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['example:ExampleOrderItems:remove']"
-          >删除</el-button>
+          >删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -152,25 +158,67 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="关联订单的ID" prop="exampleOrderId">
-          <el-input v-model="form.exampleOrderId" placeholder="请输入关联订单的ID" />
+          <el-select v-model="form.exampleOrderId"
+                     placeholder="请下拉选择订单"
+                     clearable
+                     :style="{width: '100%'}"
+                     @visible-change="getOrderIDs">
+            <el-option v-for="(item, index) in OrderIDs"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="商品的ID" prop="exampleProductId">
-          <el-input v-model="form.exampleProductId" placeholder="请输入商品的ID" />
+          <el-select v-model="form.exampleProductId"
+                     @change="handleProductChange"
+                     placeholder="请下拉选择商品"
+                     clearable
+                     :style="{width: '100%'}"
+                     @visible-change="getProductIDs">
+            <el-option v-for="(item, index) in productIDs"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="商品数量" prop="quantity">
-          <el-input v-model="form.quantity" placeholder="请输入商品数量" />
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <el-input v-model="form.quantity"
+
+                      placeholder="请输入商品数量"
+                      style="width: 120px"/>
+            <div>
+              <el-button
+                class="button-group"
+                size="mini"
+                icon="el-icon-top"
+                @click="handleQuantityIncreaseChange()"
+                :disabled="form.quantity >= 999"
+                circle/>
+              <el-button
+                class="button-group"
+                size="mini"
+                icon="el-icon-bottom"
+                @click="handleQuantitySubtractChange(Math.max(1, form.quantity - 1))"
+                :disabled="form.quantity <= 1"
+                circle/>
+            </div>
+          </div>
         </el-form-item>
         <el-form-item label="单价" prop="unitPrice">
-          <el-input v-model="form.unitPrice" placeholder="请输入单价" />
+          <el-input v-model="form.unitPrice" :disabled="true"/><!--placeholder="请输入单价"-->
         </el-form-item>
         <el-form-item label="总价" prop="totalPrice">
-          <el-input v-model="form.totalPrice" placeholder="请输入总价" />
+          <el-input v-model="form.totalPrice" :disabled="true"/><!--placeholder="请输入总价"-->
         </el-form-item>
         <el-form-item label="商品名称" prop="productName">
-          <el-input v-model="form.productName" placeholder="请输入商品名称" />
+          <el-input v-model="form.productName" placeholder="请输入商品名称"/>
         </el-form-item>
         <el-form-item label="商品库存保有单位(SKU)" prop="sku">
-          <el-input v-model="form.sku" placeholder="请输入商品库存保有单位(SKU)" />
+          <el-input v-model="form.sku" placeholder="请输入商品库存保有单位(SKU)"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -180,9 +228,22 @@
     </el-dialog>
   </div>
 </template>
-
+<style>
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+</style>
 <script>
-import { listExampleOrderItems, getExampleOrderItems, delExampleOrderItems, addExampleOrderItems, updateExampleOrderItems } from "@/api/example/ExampleOrderItems"
+import {
+  listExampleOrderItems,
+  getExampleOrderItems,
+  delExampleOrderItems,
+  addExampleOrderItems,
+  updateExampleOrderItems,
+  listExampleProducts, getExampleProducts,listExampleOrders
+} from "@/api/example/ExampleOrderItems"
 
 export default {
   name: "ExampleOrderItems",
@@ -224,27 +285,31 @@ export default {
       // 表单校验
       rules: {
         exampleOrderId: [
-          { required: true, message: "关联订单的ID不能为空", trigger: "blur" }
+          {required: true, message: "关联订单的ID不能为空", trigger: "blur"}
         ],
         exampleProductId: [
-          { required: true, message: "商品的ID不能为空", trigger: "blur" }
+          {required: true, message: "商品的ID不能为空", trigger: "blur"}
         ],
         quantity: [
-          { required: true, message: "商品数量不能为空", trigger: "blur" }
+          {required: true, message: "商品数量不能为空", trigger: "blur"}
         ],
         unitPrice: [
-          { required: true, message: "单价不能为空", trigger: "blur" }
+          {required: true, message: "单价不能为空", trigger: "blur"}
         ],
         totalPrice: [
-          { required: true, message: "总价不能为空", trigger: "blur" }
+          {required: true, message: "总价不能为空", trigger: "blur"}
         ],
         productName: [
-          { required: true, message: "商品名称不能为空", trigger: "blur" }
+          {required: true, message: "商品名称不能为空", trigger: "blur"}
         ],
         status: [
-          { required: true, message: "订单项状态不能为空", trigger: "change" }
+          {required: true, message: "订单项状态不能为空", trigger: "change"}
         ]
-      }
+      },
+      // 商品ID下拉列表
+      productIDs: [],
+      // 订单ID下拉列表
+      OrderIDs: []
     }
   },
   created() {
@@ -271,7 +336,7 @@ export default {
         exampleId: null,
         exampleOrderId: null,
         exampleProductId: null,
-        quantity: null,
+        quantity: 0,
         unitPrice: null,
         totalPrice: null,
         productName: null,
@@ -293,7 +358,7 @@ export default {
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.exampleId)
-      this.single = selection.length!==1
+      this.single = selection.length !== 1
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
@@ -335,18 +400,61 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const exampleIds = row.exampleId || this.ids
-      this.$modal.confirm('是否确认删除存储订单中每种商品的详细信息编号为"' + exampleIds + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除存储订单中每种商品的详细信息编号为"' + exampleIds + '"的数据项？').then(function () {
         return delExampleOrderItems(exampleIds)
       }).then(() => {
         this.getList()
         this.$modal.msgSuccess("删除成功")
-      }).catch(() => {})
+      }).catch(() => {
+      })
     },
     /** 导出按钮操作 */
     handleExport() {
       this.download('example/ExampleOrderItems/export', {
         ...this.queryParams
       }, `ExampleOrderItems_${new Date().getTime()}.xlsx`)
+    },
+// 新增商品选择变更处理方法
+    handleProductChange(productId) {
+      getExampleProducts(productId).then(response => {
+        if (response.code === 200) {
+          this.form.unitPrice = response.data.price;
+          this.form.totalPrice = response.data.price * this.form.quantity;
+          this.form.productName = response.data.productName;
+        }
+      })
+    },
+    handleQuantityIncreaseChange() {
+      this.form.quantity = this.form.quantity + 1;
+      this.form.totalPrice = this.form.unitPrice * this.form.quantity;
+    },
+    handleQuantitySubtractChange() {
+      if (this.form.quantity > 1) {
+        this.form.quantity = this.form.quantity - 1;
+      }
+      this.form.totalPrice = this.form.unitPrice * this.form.quantity;
+    },
+    getProductIDs() {
+      listExampleProducts().then(response => {
+        this.productIDs = []
+        response.rows.map(item => (this.productIDs.push(
+          {
+            label: item.productName,
+            value: item.exampleId
+          }))
+        )
+      });
+    },
+    getOrderIDs() {
+      listExampleOrders().then(response => {
+        this.OrderIDs = []
+        response.rows.map(item => (this.OrderIDs.push(
+          {
+            label: item.exampleUserId+ "-ID-" + item.orderDate + "-订单",
+            value: item.exampleId
+          }))
+        )
+      });
     }
   }
 }

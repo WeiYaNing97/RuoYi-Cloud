@@ -9,6 +9,15 @@ export function listExampleOrders(query) {
   })
 }
 
+
+// 查询存储用户的信息列表
+export function listExampleUsers() {
+  return request({
+    url: '/example/ExampleUsers/list',
+    method: 'get'
+  })
+}
+
 // 查询存储订单的信息详细
 export function getExampleOrders(exampleId) {
   return request({
