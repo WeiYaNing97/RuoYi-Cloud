@@ -136,7 +136,11 @@
       <el-table-column label="用户邮箱地址" align="center" prop="email"/>
       <el-table-column label="用户密码哈希值" align="center" prop="passwordHash"/>
       <el-table-column label="用户联系电话" align="center" prop="phone"/>
-      <el-table-column label="用户头像URL" align="center" prop="avatarUrl"/>
+      <el-table-column label="用户头像URL" align="center" prop="avatarUrl">
+        <template slot-scope="scope">
+          <img :src="scope.row.avatarUrl" style="width: 50px; height: 50px; border-radius: 4px"/>
+        </template>
+      </el-table-column>
 
       <el-table-column label="用户角色" align="center" prop="role">
         <template slot-scope="scope">
@@ -209,8 +213,17 @@
         <el-form-item label="用户联系电话" prop="phone">
           <el-input v-model="form.phone" placeholder="请输入用户联系电话"/>
         </el-form-item>
-        <el-form-item label="用户头像URL" prop="avatarUrl">
-          <el-input v-model="form.avatarUrl" type="textarea" placeholder="请输入内容"/>
+
+        <el-form-item label="用户头像" prop="avatarUrl">
+          <el-upload
+            action="/dev-api/practice/oss/upload"
+            :headers="{ 'Authorization': 'Bearer ' + $store.state.user.token }"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload">
+            <img v-if="form.avatarUrl" :src="form.avatarUrl" class="avatar"/>
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </el-form-item>
 
         <!-- 修改成下拉框选择      -->
@@ -224,7 +237,6 @@
                        :disabled="item.disabled"></el-option>
           </el-select>
         </el-form-item>
-
 
 
         <el-form-item label="用户账户是否激活" prop="isActive">
@@ -269,7 +281,34 @@
     </el-dialog>
   </div>
 </template>
+<style>
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
 
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+</style>
 <script>
 import {
   listExampleUsers,
@@ -279,7 +318,7 @@ import {
   updateExampleUsers,
   listRole
 } from "@/api/example/ExampleUsers"
-
+import {getToken} from "@/utils/auth"
 
 export default {
   name: "ExampleUsers",
@@ -346,7 +385,8 @@ export default {
         "label": "选项二",
         "value": 2
       }],
-      Userstate:[{
+      /* 用户状态 */
+      Userstate: [{
         "label": "激活",
         "value": 1
       }, {
@@ -373,7 +413,7 @@ export default {
     /** 获取角色信息 */
     getRoleList() {
       listRole().then(response => {
-        this.roleList = []
+          this.roleList = []
           response.rows.map(item => (this.roleList.push(
             {
               label: item.roleName,
@@ -482,6 +522,32 @@ export default {
       this.download('example/ExampleUsers/export', {
         ...this.queryParams
       }, `ExampleUsers_${new Date().getTime()}.xlsx`)
+    },
+
+    /* 用户头像上传 */
+    handleAvatarSuccess(res, file) {
+
+    if (this.form.avatarUrl != null) {
+      delExampleUsersAvatarUrl(this.form.avatarUrl)
+    }
+    if (res.code === 200) {
+      alert(res.msg)
+      this.form.avatarUrl = res.msg // 假设后端返回结构为{ data: { data: 'url' } }
+      this.$message.success('上传成功')
+    } else {
+      this.$message.error(res.msg || '上传失败')
+    }
+  },
+    beforeAvatarUpload(file) {
+      const isImage = file.type.startsWith('image/')
+      const isLt2M = file.size / 1024 / 1024 < 2
+      if (!isImage) {
+        this.$message.error('只能上传图片!')
+      }
+      if (!isLt2M) {
+        this.$message.error('图片大小不能超过2MB!')
+      }
+      return isImage && isLt2M
     }
   }
 }

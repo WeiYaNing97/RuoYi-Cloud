@@ -1,6 +1,8 @@
 package com.ruoyi.minio.mapper;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruoyi.minio.domain.MinioRecord;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,7 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2025-07-21
  */
 @Mapper
-public interface MinioRecordMapper 
+public interface MinioRecordMapper extends BaseMapper<MinioRecord>
 {
     /**
      * 查询minio操作记录

@@ -1,17 +1,15 @@
 package com.ruoyi.minio.service.impl;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.ruoyi.common.core.utils.DateUtils;
+import com.ruoyi.minio.domain.MinioRecord;
+import com.ruoyi.minio.mapper.MinioRecordMapper;
+import com.ruoyi.minio.service.IMinioRecordService;
 import com.ruoyi.minio.utils.MyMinioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.minio.mapper.MinioRecordMapper;
-import com.ruoyi.minio.domain.MinioRecord;
-import com.ruoyi.minio.service.IMinioRecordService;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * minio操作记录Service业务层处理
@@ -86,10 +84,16 @@ public class MinioRecordServiceImpl implements IMinioRecordService
     @Override
     public int deleteMinioRecordByIds(Long[] ids)
     {
-        List<MinioRecord> pojoList= minioRecordMapper.selectMinioRecordByIds(ids);
+        // 根据id数组查询出对应的MinioRecord对象列表
+        List<MinioRecord> pojoList = minioRecordMapper.selectMinioRecordByIds(ids);
+
+        // 遍历对象列表，对每一个MinioRecord对象调用minioUtils的removeFile方法删除文件
         pojoList.stream().forEach(x -> minioUtils.removeFile(x.getFilePath()));
+
+        // 根据id数组批量删除MinioRecord记录
         return minioRecordMapper.deleteMinioRecordByIds(ids);
     }
+
 
     /**
      * 删除minio操作记录信息
@@ -100,8 +104,12 @@ public class MinioRecordServiceImpl implements IMinioRecordService
     @Override
     public int deleteMinioRecordById(Long id)
     {
+        // 根据主键查询minio操作记录
         MinioRecord minioRecord = minioRecordMapper.selectMinioRecordById(id);
+        // 删除minio操作记录对应的文件
         minioUtils.removeFile(minioRecord.getFilePath());
+        // 删除minio操作记录
         return minioRecordMapper.deleteMinioRecordById(id);
     }
+
 }

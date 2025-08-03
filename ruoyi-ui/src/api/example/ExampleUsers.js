@@ -51,3 +51,11 @@ export function listRole(query) {
     params: query
   })
 }
+
+// 删除用户头像url
+export function delExampleUsersAvatarUrl(fileName) {
+  return request({
+    url: '/practice/oss/'+fileName,
+    method: 'delete'
+  })
+}

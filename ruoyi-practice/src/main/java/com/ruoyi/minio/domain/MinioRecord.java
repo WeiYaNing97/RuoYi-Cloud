@@ -1,9 +1,13 @@
 package com.ruoyi.minio.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.annotation.Excel;
 import com.ruoyi.common.core.web.domain.BaseEntity;
+
+import java.util.Date;
 
 /**
  * minio操作记录对象 minio_record
@@ -11,7 +15,8 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
  * @author ruoyi
  * @date 2025-07-21
  */
-public class MinioRecord extends BaseEntity
+@Data
+public class MinioRecord
 {
     private static final long serialVersionUID = 1L;
 
@@ -29,58 +34,21 @@ public class MinioRecord extends BaseEntity
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
 
-    public void setId(Long id) 
-    {
-        this.id = id;
-    }
+    /** 创建者 */
+    private String createBy;
 
-    public Long getId() 
-    {
-        return id;
-    }
+    /** 创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 
-    public void setFileName(String fileName) 
-    {
-        this.fileName = fileName;
-    }
+    /** 更新者 */
+    private String updateBy;
 
-    public String getFileName() 
-    {
-        return fileName;
-    }
+    /** 更新时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
 
-    public void setFilePath(String filePath) 
-    {
-        this.filePath = filePath;
-    }
+    /** 备注 */
+    private String remark;
 
-    public String getFilePath() 
-    {
-        return filePath;
-    }
-
-    public void setDelFlag(String delFlag) 
-    {
-        this.delFlag = delFlag;
-    }
-
-    public String getDelFlag() 
-    {
-        return delFlag;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("fileName", getFileName())
-            .append("filePath", getFilePath())
-            .append("delFlag", getDelFlag())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
-            .toString();
-    }
 }

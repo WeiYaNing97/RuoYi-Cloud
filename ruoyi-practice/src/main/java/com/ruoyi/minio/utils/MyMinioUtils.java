@@ -327,7 +327,11 @@ public class MyMinioUtils {
      */
     @SneakyThrows(Exception.class)
     public void removeFile(String bucketName, String objectName) {
-        minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(objectName).build());
+        try {
+            minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(objectName).build());
+        }catch (Exception e) {
+            log.error(e.getMessage(),e);
+        }
     }
 
     /**
@@ -335,7 +339,7 @@ public class MyMinioUtils {
      */
     @SneakyThrows(Exception.class)
     public void removeFile(String filePath) {
-        String[] filePath_split = filePath.split("\\\\");
+        String[] filePath_split = filePath.split("/");
         if (filePath_split.length > 2) {
             minioClient.removeObject(RemoveObjectArgs.builder().bucket(filePath_split[filePath_split.length-2]).object(filePath_split[filePath_split.length-1]).build());
         }

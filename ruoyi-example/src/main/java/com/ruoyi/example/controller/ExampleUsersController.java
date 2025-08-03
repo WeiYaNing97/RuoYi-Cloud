@@ -1,9 +1,14 @@
 package com.ruoyi.example.controller;
 
 import java.util.List;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.ruoyi.example.domain.*;
+import com.ruoyi.example.mapper.ExampleUsersMapper;
+import com.ruoyi.minio.mapper.MinioRecordMapper;
+import com.ruoyi.minio.service.MinioOssService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +38,6 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
 public class ExampleUsersController extends BaseController {
     @Autowired
     private IExampleUsersService exampleUsersService;
-
     /**
      * 查询存储用户的信息列表
      */
