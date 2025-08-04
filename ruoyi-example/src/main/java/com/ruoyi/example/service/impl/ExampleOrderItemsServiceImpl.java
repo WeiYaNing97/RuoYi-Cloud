@@ -5,8 +5,11 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruoyi.example.domain.ExampleOrders;
+import com.ruoyi.example.domain.ExampleProducts;
 import com.ruoyi.example.mapper.ExampleOrdersMapper;
+import com.ruoyi.example.mapper.ExampleProductsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.example.mapper.ExampleOrderItemsMapper;
@@ -20,7 +23,7 @@ import com.ruoyi.example.service.IExampleOrderItemsService;
  * @date 2025-07-27
  */
 @Service
-public class ExampleOrderItemsServiceImpl implements IExampleOrderItemsService 
+public class ExampleOrderItemsServiceImpl extends ServiceImpl<ExampleOrderItemsMapper, ExampleOrderItems> implements IExampleOrderItemsService
 {
     @Autowired
     private ExampleOrderItemsMapper exampleOrderItemsMapper;

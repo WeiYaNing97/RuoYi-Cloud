@@ -1,6 +1,8 @@
 package com.ruoyi.example.service.impl;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.example.mapper.ExampleProductsMapper;
@@ -14,7 +16,7 @@ import com.ruoyi.example.service.IExampleProductsService;
  * @date 2025-07-27
  */
 @Service
-public class ExampleProductsServiceImpl implements IExampleProductsService 
+public class ExampleProductsServiceImpl extends ServiceImpl<ExampleProductsMapper, ExampleProducts> implements IExampleProductsService
 {
     @Autowired
     private ExampleProductsMapper exampleProductsMapper;

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruoyi.minio.domain.MinioRecord;
 import com.ruoyi.minio.mapper.MinioRecordMapper;
 import com.ruoyi.minio.service.IMinioRecordService;
@@ -24,7 +26,7 @@ import javax.annotation.Resource;
  * @date 2025-07-27
  */
 @Service
-public class ExampleUsersServiceImpl implements IExampleUsersService {
+public class ExampleUsersServiceImpl extends ServiceImpl<ExampleUsersMapper,ExampleUsers> implements IExampleUsersService {
     @Autowired
     private ExampleUsersMapper exampleUsersMapper;
 

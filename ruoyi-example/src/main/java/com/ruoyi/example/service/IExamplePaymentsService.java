@@ -1,6 +1,8 @@
 package com.ruoyi.example.service;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruoyi.example.domain.ExamplePayments;
 
 /**
@@ -9,7 +11,7 @@ import com.ruoyi.example.domain.ExamplePayments;
  * @author ruoyi
  * @date 2025-07-27
  */
-public interface IExamplePaymentsService 
+public interface IExamplePaymentsService extends IService<ExamplePayments>
 {
     /**
      * 查询存储支付信息

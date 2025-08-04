@@ -1,6 +1,8 @@
 package com.ruoyi.example.service;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruoyi.example.domain.ExampleUsers;
 
 /**
@@ -9,7 +11,7 @@ import com.ruoyi.example.domain.ExampleUsers;
  * @author ruoyi
  * @date 2025-07-27
  */
-public interface IExampleUsersService 
+public interface IExampleUsersService extends IService<ExampleUsers>
 {
     /**
      * 查询存储用户的信息

@@ -1,6 +1,8 @@
 package com.ruoyi.example.service;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruoyi.example.domain.ExampleOrders;
 
 /**
@@ -9,7 +11,7 @@ import com.ruoyi.example.domain.ExampleOrders;
  * @author ruoyi
  * @date 2025-07-27
  */
-public interface IExampleOrdersService 
+public interface IExampleOrdersService extends IService<ExampleOrders>
 {
     /**
      * 查询存储订单的信息

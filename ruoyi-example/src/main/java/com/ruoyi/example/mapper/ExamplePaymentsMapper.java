@@ -1,7 +1,10 @@
 package com.ruoyi.example.mapper;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruoyi.example.domain.ExamplePayments;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 存储支付信息Mapper接口
@@ -9,7 +12,8 @@ import com.ruoyi.example.domain.ExamplePayments;
  * @author ruoyi
  * @date 2025-07-27
  */
-public interface ExamplePaymentsMapper 
+@Mapper
+public interface ExamplePaymentsMapper extends BaseMapper<ExamplePayments>
 {
     /**
      * 查询存储支付信息

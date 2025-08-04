@@ -11,7 +11,7 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
 #elseif($table.tree)
 import com.ruoyi.common.core.web.domain.TreeEntity;
 #end
-
+import lombok.Data;
 /**
  * ${functionName}对象 ${tableName}
  * 
@@ -23,6 +23,7 @@ import com.ruoyi.common.core.web.domain.TreeEntity;
 #elseif($table.tree)
 #set($Entity="TreeEntity")
 #end
+@Data
 public class ${ClassName} extends ${Entity}
 {
     private static final long serialVersionUID = 1L;

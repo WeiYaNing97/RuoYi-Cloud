@@ -1,6 +1,8 @@
 package com.ruoyi.example.service;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruoyi.example.domain.ExampleCategories;
 
 /**
@@ -9,7 +11,7 @@ import com.ruoyi.example.domain.ExampleCategories;
  * @author ruoyi
  * @date 2025-07-27
  */
-public interface IExampleCategoriesService 
+public interface IExampleCategoriesService extends IService<ExampleCategories>
 {
     /**
      * 查询存储商品类别的信息

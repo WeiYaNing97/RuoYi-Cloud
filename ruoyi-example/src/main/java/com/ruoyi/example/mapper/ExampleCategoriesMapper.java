@@ -1,7 +1,10 @@
 package com.ruoyi.example.mapper;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruoyi.example.domain.ExampleCategories;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 存储商品类别的信息Mapper接口
@@ -9,7 +12,8 @@ import com.ruoyi.example.domain.ExampleCategories;
  * @author ruoyi
  * @date 2025-07-27
  */
-public interface ExampleCategoriesMapper 
+@Mapper
+public interface ExampleCategoriesMapper extends BaseMapper<ExampleCategories>
 {
     /**
      * 查询存储商品类别的信息
