@@ -39,7 +39,7 @@ public class ExampleUsersController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(ExampleUsers exampleUsers) {
 
-        MPJLambdaWrapper<ExampleUsersVO> wrapper = new MPJLambdaWrapper<>();
+       /* MPJLambdaWrapper<ExampleUsersVO> wrapper = new MPJLambdaWrapper<>();
         wrapper.selectAll(ExampleUsersVO.class)
                 .selectAssociation(ExampleOrdersVO.class, ExampleUsersVO::getExampleOrdersVOs)
                 .selectAssociation(ExampleOrderItemsVO.class, ExampleOrdersVO::getExampleOrderItemsVOs)
@@ -48,7 +48,7 @@ public class ExampleUsersController extends BaseController {
                 .leftJoin(ExampleOrderItemsVO.class, ExampleOrderItemsVO::getExampleOrderId, ExampleOrdersVO::getExampleId)
                 .leftJoin(ExampleProductsVO.class, ExampleProductsVO::getExampleId, ExampleOrderItemsVO::getExampleProductId);
         List<ExampleUsersVO> exampleUsersVOS = exampleUsersVOMapper.selectJoinList(ExampleUsersVO.class,wrapper);
-
+*/
         startPage();
         List<ExampleUsers> list = exampleUsersService.selectExampleUsersList(exampleUsers);
         return getDataTable(list);
