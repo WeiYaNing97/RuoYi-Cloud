@@ -5,15 +5,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruoyi.example.domain.ExampleUsers;
 import com.ruoyi.example.mapper.ExampleUsersMapper;
 import com.ruoyi.example.service.IExampleUsersService;
-import com.ruoyi.minio.domain.MinioRecord;
-import com.ruoyi.minio.mapper.MinioRecordMapper;
-import com.ruoyi.minio.service.IMinioRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 存储用户的信息Service业务层处理
@@ -26,10 +21,6 @@ public class ExampleUsersServiceImpl extends ServiceImpl<ExampleUsersMapper,Exam
     @Autowired
     private ExampleUsersMapper exampleUsersMapper;
 
-    @Resource
-    private MinioRecordMapper minioRecordMapper;
-    @Resource
-    private IMinioRecordService minioRecordService;
 
     /**
      * 查询存储用户的信息
@@ -88,8 +79,7 @@ public class ExampleUsersServiceImpl extends ServiceImpl<ExampleUsersMapper,Exam
             if (pojo != null
                     && pojo.getAvatarUrl() != null
                     && !pojo.getAvatarUrl().equals(exampleUsers.getAvatarUrl())) {
-                // 删除Minio存储中的旧头像记录
-                delMinioRecord(pojo.getAvatarUrl());
+            // 删除旧头像记录
             }
         }
 
@@ -119,8 +109,7 @@ public class ExampleUsersServiceImpl extends ServiceImpl<ExampleUsersMapper,Exam
                 .forEach(exampleUser ->
                 {
                     // 删除用户头像在MinIO中的记录
-                    // /*minioOssService.deleteByFilePath(exampleUser.getAvatarUrl());*/
-                    delMinioRecord(exampleUser.getAvatarUrl());
+                    // 删除用户头像
                 });
 
         // 删除存储用户的信息
@@ -139,22 +128,5 @@ public class ExampleUsersServiceImpl extends ServiceImpl<ExampleUsersMapper,Exam
         return exampleUsersMapper.deleteExampleUsersByExampleId(exampleId);
     }
 
-    /**
-     * 删除 Minio 记录
-     *
-     * @param avatarUrl 文件路径
-     * @return 删除的记录数
-     */
-    public Integer delMinioRecord(String avatarUrl) {
-        // 从 minioRecordMapper 中查询符合条件的记录ID列表
-        List<Long> collect = minioRecordMapper.selectList(new LambdaQueryWrapper<MinioRecord>()
-                        .ge(MinioRecord::getFilePath, avatarUrl)) // 查询文件路径大于等于 avatarUrl 的记录
-                .stream().map(MinioRecord::getId).collect(Collectors.toList()); // 将查询结果转换为ID列表
-
-        // 通过 minioRecordService 删除查询到的记录
-        int i = minioRecordService.deleteMinioRecordByIds(collect.toArray(new Long[0])); // 根据ID数组删除记录
-
-        return i;
-    }
 
 }
