@@ -1,10 +1,11 @@
 package com.ruoyi.example.mapper;
 
-import java.util.List;
-
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ruoyi.common.core.config.BaseMapperX;
 import com.ruoyi.example.domain.ExampleProducts;
+import com.ruoyi.example.domain.ExampleProductsVO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * 存储商品的信息Mapper接口
@@ -13,7 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2025-07-27
  */
 @Mapper
-public interface ExampleProductsMapper extends BaseMapper<ExampleProducts>
+public interface ExampleProductsVOMapper extends BaseMapperX<ExampleProductsVO>
 {
     /**
      * 查询存储商品的信息

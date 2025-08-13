@@ -5,6 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import io.minio.MinioClient;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Minio 配置信息
  *
@@ -78,5 +83,24 @@ public class MinioConfig
     public MinioClient getMinioClient()
     {
         return MinioClient.builder().endpoint(url).credentials(accessKey, secretKey).build();
+    }
+
+    public static void main(String[] args) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = sdf.parse("2025-06-21 12:30:45");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MINUTE, (int)(0.21 * 60));
+        String result = sdf.format(calendar.getTime());
+        System.out.println(result); // 输出：2025-06-21 13:45:45
+
+        /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = sdf.parse("2025-06-21 12:30:45");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int addSeconds = (int)(1.25 * 3600); // 1.25小时转为秒
+        calendar.add(Calendar.SECOND, addSeconds);
+        String result = sdf.format(calendar.getTime());
+        System.out.println(result); // 输出：2025-06-21 13:45:45*/
     }
 }

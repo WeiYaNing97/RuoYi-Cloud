@@ -1,1 +1,4 @@
 com.ruoyi.minio.service.MinioOssService
+com.ruoyi.minio.domain.MinioRecord
+com.ruoyi.minio.mapper.MinioRecordMapper
+com.ruoyi.minio.service.IMinioRecordService

@@ -1,31 +1,22 @@
 package com.ruoyi.example.controller;
 
-import java.util.List;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.ruoyi.example.domain.*;
-import com.ruoyi.example.mapper.ExampleUsersMapper;
-import com.ruoyi.minio.mapper.MinioRecordMapper;
-import com.ruoyi.minio.service.MinioOssService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.github.yulichang.wrapper.MPJLambdaWrapper;
+import com.ruoyi.common.core.utils.poi.ExcelUtil;
+import com.ruoyi.common.core.web.controller.BaseController;
+import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.ruoyi.common.core.web.page.TableDataInfo;
 import com.ruoyi.common.log.annotation.Log;
 import com.ruoyi.common.log.enums.BusinessType;
 import com.ruoyi.common.security.annotation.RequiresPermissions;
+import com.ruoyi.example.domain.*;
+import com.ruoyi.example.mapper.ExampleUsersVOMapper;
 import com.ruoyi.example.service.IExampleUsersService;
-import com.ruoyi.common.core.web.controller.BaseController;
-import com.ruoyi.common.core.web.domain.AjaxResult;
-import com.ruoyi.common.core.utils.poi.ExcelUtil;
-import com.ruoyi.common.core.web.page.TableDataInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 存储用户的信息Controller
@@ -38,12 +29,26 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
 public class ExampleUsersController extends BaseController {
     @Autowired
     private IExampleUsersService exampleUsersService;
+    @Resource
+    private ExampleUsersVOMapper exampleUsersVOMapper;
+
     /**
      * 查询存储用户的信息列表
      */
     @RequiresPermissions("example:ExampleUsers:list")
     @GetMapping("/list")
     public TableDataInfo list(ExampleUsers exampleUsers) {
+
+        MPJLambdaWrapper<ExampleUsersVO> wrapper = new MPJLambdaWrapper<>();
+        wrapper.selectAll(ExampleUsersVO.class)
+                .selectAssociation(ExampleOrdersVO.class, ExampleUsersVO::getExampleOrdersVOs)
+                .selectAssociation(ExampleOrderItemsVO.class, ExampleOrdersVO::getExampleOrderItemsVOs)
+                .selectCollection(ExampleProductsVO.class, ExampleOrderItemsVO::getExampleProductsVOs)
+                .leftJoin(ExampleOrdersVO.class, ExampleOrdersVO::getExampleUserId, ExampleUsersVO::getExampleId)
+                .leftJoin(ExampleOrderItemsVO.class, ExampleOrderItemsVO::getExampleOrderId, ExampleOrdersVO::getExampleId)
+                .leftJoin(ExampleProductsVO.class, ExampleProductsVO::getExampleId, ExampleOrderItemsVO::getExampleProductId);
+        List<ExampleUsersVO> exampleUsersVOS = exampleUsersVOMapper.selectJoinList(ExampleUsersVO.class,wrapper);
+
         startPage();
         List<ExampleUsers> list = exampleUsersService.selectExampleUsersList(exampleUsers);
         return getDataTable(list);

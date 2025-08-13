@@ -1,23 +1,19 @@
 package com.ruoyi.example.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ruoyi.example.domain.ExampleUsers;
+import com.ruoyi.example.mapper.ExampleUsersMapper;
+import com.ruoyi.example.service.IExampleUsersService;
 import com.ruoyi.minio.domain.MinioRecord;
 import com.ruoyi.minio.mapper.MinioRecordMapper;
 import com.ruoyi.minio.service.IMinioRecordService;
-import com.ruoyi.minio.service.MinioOssService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.example.mapper.ExampleUsersMapper;
-import com.ruoyi.example.domain.ExampleUsers;
-import com.ruoyi.example.service.IExampleUsersService;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 存储用户的信息Service业务层处理
