@@ -90,7 +90,14 @@ public class ExampleUsersVO {
     private Date updatedAt;
 
     // ... existing code ...
+    @TableField(exist = false)
     private ExampleOrdersVO exampleOrdersVOs;
+
+    @TableField(exist = false)
+    private ExampleOrderItemsVO exampleOrderItemsVOs;
+
+    @TableField(exist = false)
+    private List<ExampleProductsVO> exampleProductsVOs;
 // ... existing code ...
 
 }

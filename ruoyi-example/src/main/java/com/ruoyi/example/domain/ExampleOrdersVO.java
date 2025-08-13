@@ -72,6 +72,7 @@ public class ExampleOrdersVO
     private Date updatedAt;
 
     // ... existing code ...
+    @TableField(exist = false)
     private ExampleOrderItemsVO exampleOrderItemsVOs;
 // ... existing code ...
 

@@ -39,16 +39,25 @@ public class ExampleUsersController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(ExampleUsers exampleUsers) {
 
-       /* MPJLambdaWrapper<ExampleUsersVO> wrapper = new MPJLambdaWrapper<>();
-        wrapper.selectAll(ExampleUsersVO.class)
-                .selectAssociation(ExampleOrdersVO.class, ExampleUsersVO::getExampleOrdersVOs)
-                .selectAssociation(ExampleOrderItemsVO.class, ExampleOrdersVO::getExampleOrderItemsVOs)
-                .selectCollection(ExampleProductsVO.class, ExampleOrderItemsVO::getExampleProductsVOs)
-                .leftJoin(ExampleOrdersVO.class, ExampleOrdersVO::getExampleUserId, ExampleUsersVO::getExampleId)
-                .leftJoin(ExampleOrderItemsVO.class, ExampleOrderItemsVO::getExampleOrderId, ExampleOrdersVO::getExampleId)
-                .leftJoin(ExampleProductsVO.class, ExampleProductsVO::getExampleId, ExampleOrderItemsVO::getExampleProductId);
-        List<ExampleUsersVO> exampleUsersVOS = exampleUsersVOMapper.selectJoinList(ExampleUsersVO.class,wrapper);
-*/
+        try {
+            MPJLambdaWrapper<ExampleUsersVO> wrapper = new MPJLambdaWrapper<>();
+            wrapper.selectAll(ExampleUsersVO.class)
+                    .selectAll(ExampleOrdersVO.class)
+                    .selectAll(ExampleOrderItemsVO.class)
+                    .selectAll(ExampleProductsVO.class)
+                    .selectAssociation(ExampleOrdersVO.class, ExampleUsersVO::getExampleOrdersVOs)
+                    .selectAssociation(ExampleOrderItemsVO.class, ExampleOrdersVO::getExampleOrderItemsVOs)
+                    .selectCollection(ExampleProductsVO.class, ExampleOrderItemsVO::getExampleProductsVOs)
+                    .leftJoin(ExampleOrdersVO.class, ExampleOrdersVO::getExampleUserId, ExampleUsersVO::getExampleId)
+                    .leftJoin(ExampleOrderItemsVO.class, ExampleOrderItemsVO::getExampleOrderId, ExampleOrdersVO::getExampleId)
+                    .leftJoin(ExampleProductsVO.class, ExampleProductsVO::getExampleId, ExampleOrderItemsVO::getExampleProductId);
+            List<ExampleUsersVO> exampleUsersVOS = exampleUsersVOMapper.selectJoinList(ExampleUsersVO.class,wrapper);
+            exampleUsersVOS.stream().forEach(exampleUsersVO ->{
+                System.out.println(exampleUsersVO.toString());
+            });
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+        }
         startPage();
         List<ExampleUsers> list = exampleUsersService.selectExampleUsersList(exampleUsers);
         return getDataTable(list);

@@ -55,5 +55,6 @@ public class ExampleOrderItemsVO
     @Excel(name = "订单项状态", readConverterExp = "例=如：normal,,r=eturned,,e=xchanged")
     private String status;
 
+    @TableField(exist = false)
     private List<ExampleProductsVO> exampleProductsVOs;
 }
