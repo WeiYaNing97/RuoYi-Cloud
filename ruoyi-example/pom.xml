@@ -78,11 +78,6 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-practice</artifactId>
-            <version>3.6.6</version>
-        </dependency>
     </dependencies>
 
     <build>
