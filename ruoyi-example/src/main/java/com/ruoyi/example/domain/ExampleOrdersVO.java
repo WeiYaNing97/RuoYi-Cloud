@@ -73,7 +73,7 @@ public class ExampleOrdersVO
 
     // ... existing code ...
     @TableField(exist = false)
-    private ExampleOrderItemsVO exampleOrderItemsVOs;
+    private List<ExampleOrderItemsVO> exampleOrderItemsVOs;
 // ... existing code ...
 
 }

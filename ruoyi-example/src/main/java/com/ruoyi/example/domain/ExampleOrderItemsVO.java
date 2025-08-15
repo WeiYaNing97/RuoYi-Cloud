@@ -56,5 +56,5 @@ public class ExampleOrderItemsVO
     private String status;
 
     @TableField(exist = false)
-    private List<ExampleProductsVO> exampleProductsVOs;
+    private ExampleProductsVO exampleProductsVOs;
 }

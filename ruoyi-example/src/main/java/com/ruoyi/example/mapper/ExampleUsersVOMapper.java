@@ -18,53 +18,6 @@ import java.util.List;
 @Mapper
 public interface ExampleUsersVOMapper extends MPJBaseMapper<ExampleUsersVO>
 {
-    /**
-     * 查询存储用户的信息
-     * 
-     * @param exampleId 存储用户的信息主键
-     * @return 存储用户的信息
-     */
-    public ExampleUsers selectExampleUsersByExampleId(Long exampleId);
 
-    /**
-     * 查询存储用户的信息列表
-     * 
-     * @param exampleUsers 存储用户的信息
-     * @return 存储用户的信息集合
-     */
-    public List<ExampleUsers> selectExampleUsersList(ExampleUsers exampleUsers);
-
-    /**
-     * 新增存储用户的信息
-     * 
-     * @param exampleUsers 存储用户的信息
-     * @return 结果
-     */
-    public int insertExampleUsers(ExampleUsers exampleUsers);
-
-    /**
-     * 修改存储用户的信息
-     * 
-     * @param exampleUsers 存储用户的信息
-     * @return 结果
-     */
-    public int updateExampleUsers(ExampleUsers exampleUsers);
-
-    /**
-     * 删除存储用户的信息
-     * 
-     * @param exampleId 存储用户的信息主键
-     * @return 结果
-     */
-    public int deleteExampleUsersByExampleId(Long exampleId);
-
-    /**
-     * 批量删除存储用户的信息
-     * 
-     * @param exampleIds 需要删除的数据主键集合
-     * @return 结果
-     */
-    public int deleteExampleUsersByExampleIds(Long[] exampleIds);
-
-    List<ExampleUsersVO> selectJoinListALL();
+    List<ExampleUsersVO> selectUserProductsList();
 }

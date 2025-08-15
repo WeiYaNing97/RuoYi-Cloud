@@ -89,15 +89,6 @@ public class ExampleUsersVO {
     @Excel(name = "记录最后更新时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date updatedAt;
 
-    // ... existing code ...
     @TableField(exist = false)
     private ExampleOrdersVO exampleOrdersVOs;
-
-    @TableField(exist = false)
-    private ExampleOrderItemsVO exampleOrderItemsVOs;
-
-    @TableField(exist = false)
-    private List<ExampleProductsVO> exampleProductsVOs;
-// ... existing code ...
-
 }
