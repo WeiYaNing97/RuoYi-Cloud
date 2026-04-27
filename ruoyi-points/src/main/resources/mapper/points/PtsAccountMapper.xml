@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.points.mapper.PtsAccountMapper">
+    
+    <resultMap type="PtsAccount" id="PtsAccountResult">
+        <result property="userId"    column="user_id"    />
+        <result property="totalPoints"    column="total_points"    />
+        <result property="frozenPoints"    column="frozen_points"    />
+        <result property="version"    column="version"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectPtsAccountVo">
+        select user_id, total_points, frozen_points, version, update_time from pts_account
+    </sql>
+
+    <select id="selectPtsAccountList" parameterType="PtsAccount" resultMap="PtsAccountResult">
+        <include refid="selectPtsAccountVo"/>
+        <where>  
+            <if test="totalPoints != null "> and total_points = #{totalPoints}</if>
+            <if test="frozenPoints != null "> and frozen_points = #{frozenPoints}</if>
+            <if test="version != null "> and version = #{version}</if>
+        </where>
+    </select>
+    
+    <select id="selectPtsAccountByUserId" parameterType="Long" resultMap="PtsAccountResult">
+        <include refid="selectPtsAccountVo"/>
+        where user_id = #{userId}
+    </select>
+
+    <insert id="insertPtsAccount" parameterType="PtsAccount">
+        insert into pts_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="totalPoints != null">total_points,</if>
+            <if test="frozenPoints != null">frozen_points,</if>
+            <if test="version != null">version,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="totalPoints != null">#{totalPoints},</if>
+            <if test="frozenPoints != null">#{frozenPoints},</if>
+            <if test="version != null">#{version},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePtsAccount" parameterType="PtsAccount">
+        update pts_account
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="totalPoints != null">total_points = #{totalPoints},</if>
+            <if test="frozenPoints != null">frozen_points = #{frozenPoints},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+    <delete id="deletePtsAccountByUserId" parameterType="Long">
+        delete from pts_account where user_id = #{userId}
+    </delete>
+
+    <delete id="deletePtsAccountByUserIds" parameterType="String">
+        delete from pts_account where user_id in 
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+</mapper>

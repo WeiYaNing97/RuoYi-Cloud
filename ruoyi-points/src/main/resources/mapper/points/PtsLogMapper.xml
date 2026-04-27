@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.points.mapper.PtsLogMapper">
+    
+    <resultMap type="PtsLog" id="PtsLogResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="type"    column="type"    />
+        <result property="amount"    column="amount"    />
+        <result property="balanceSnapshot"    column="balance_snapshot"    />
+        <result property="sourceType"    column="source_type"    />
+        <result property="sourceId"    column="source_id"    />
+        <result property="description"    column="description"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPtsLogVo">
+        select id, user_id, type, amount, balance_snapshot, source_type, source_id, description, create_time from pts_log
+    </sql>
+
+    <select id="selectPtsLogList" parameterType="PtsLog" resultMap="PtsLogResult">
+        <include refid="selectPtsLogVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="type != null "> and type = #{type}</if>
+            <if test="amount != null "> and amount = #{amount}</if>
+            <if test="balanceSnapshot != null "> and balance_snapshot = #{balanceSnapshot}</if>
+            <if test="sourceType != null  and sourceType != ''"> and source_type = #{sourceType}</if>
+            <if test="sourceId != null  and sourceId != ''"> and source_id = #{sourceId}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+        </where>
+    </select>
+    
+    <select id="selectPtsLogById" parameterType="Long" resultMap="PtsLogResult">
+        <include refid="selectPtsLogVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPtsLog" parameterType="PtsLog" useGeneratedKeys="true" keyProperty="id">
+        insert into pts_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="type != null">type,</if>
+            <if test="amount != null">amount,</if>
+            <if test="balanceSnapshot != null">balance_snapshot,</if>
+            <if test="sourceType != null and sourceType != ''">source_type,</if>
+            <if test="sourceId != null and sourceId != ''">source_id,</if>
+            <if test="description != null">description,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="type != null">#{type},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="balanceSnapshot != null">#{balanceSnapshot},</if>
+            <if test="sourceType != null and sourceType != ''">#{sourceType},</if>
+            <if test="sourceId != null and sourceId != ''">#{sourceId},</if>
+            <if test="description != null">#{description},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePtsLog" parameterType="PtsLog">
+        update pts_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="balanceSnapshot != null">balance_snapshot = #{balanceSnapshot},</if>
+            <if test="sourceType != null and sourceType != ''">source_type = #{sourceType},</if>
+            <if test="sourceId != null and sourceId != ''">source_id = #{sourceId},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePtsLogById" parameterType="Long">
+        delete from pts_log where id = #{id}
+    </delete>
+
+    <delete id="deletePtsLogByIds" parameterType="String">
+        delete from pts_log where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

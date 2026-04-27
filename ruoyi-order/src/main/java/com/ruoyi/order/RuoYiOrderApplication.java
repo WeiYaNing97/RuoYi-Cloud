@@ -1,4 +1,4 @@
-package com.ruoyi;
+package com.ruoyi.order;
 
 import com.ruoyi.common.security.annotation.EnableRyFeignClients;
 import org.springframework.boot.SpringApplication;
