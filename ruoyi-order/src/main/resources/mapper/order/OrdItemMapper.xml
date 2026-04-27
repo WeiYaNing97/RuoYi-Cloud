@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.order.mapper.OrdItemMapper">
+    
+    <resultMap type="OrdItem" id="OrdItemResult">
+        <result property="id"    column="id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="productSkuCode"    column="product_sku_code"    />
+        <result property="productPrice"    column="product_price"    />
+        <result property="productQuantity"    column="product_quantity"    />
+        <result property="productTotalPrice"    column="product_total_price"    />
+    </resultMap>
+
+    <sql id="selectOrdItemVo">
+        select id, order_id, product_id, product_name, product_sku_code, product_price, product_quantity, product_total_price from ord_item
+    </sql>
+
+    <select id="selectOrdItemList" parameterType="OrdItem" resultMap="OrdItemResult">
+        <include refid="selectOrdItemVo"/>
+        <where>  
+            <if test="orderId != null "> and order_id = #{orderId}</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="productSkuCode != null  and productSkuCode != ''"> and product_sku_code = #{productSkuCode}</if>
+            <if test="productPrice != null "> and product_price = #{productPrice}</if>
+            <if test="productQuantity != null "> and product_quantity = #{productQuantity}</if>
+            <if test="productTotalPrice != null "> and product_total_price = #{productTotalPrice}</if>
+        </where>
+    </select>
+    
+    <select id="selectOrdItemById" parameterType="Long" resultMap="OrdItemResult">
+        <include refid="selectOrdItemVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertOrdItem" parameterType="OrdItem" useGeneratedKeys="true" keyProperty="id">
+        insert into ord_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="productSkuCode != null and productSkuCode != ''">product_sku_code,</if>
+            <if test="productPrice != null">product_price,</if>
+            <if test="productQuantity != null">product_quantity,</if>
+            <if test="productTotalPrice != null">product_total_price,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="productSkuCode != null and productSkuCode != ''">#{productSkuCode},</if>
+            <if test="productPrice != null">#{productPrice},</if>
+            <if test="productQuantity != null">#{productQuantity},</if>
+            <if test="productTotalPrice != null">#{productTotalPrice},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOrdItem" parameterType="OrdItem">
+        update ord_item
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="productName != null and productName != ''">product_name = #{productName},</if>
+            <if test="productSkuCode != null and productSkuCode != ''">product_sku_code = #{productSkuCode},</if>
+            <if test="productPrice != null">product_price = #{productPrice},</if>
+            <if test="productQuantity != null">product_quantity = #{productQuantity},</if>
+            <if test="productTotalPrice != null">product_total_price = #{productTotalPrice},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOrdItemById" parameterType="Long">
+        delete from ord_item where id = #{id}
+    </delete>
+
+    <delete id="deleteOrdItemByIds" parameterType="String">
+        delete from ord_item where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
