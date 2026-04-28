@@ -21,4 +21,10 @@ public class ServiceNameConstants
      * 文件服务的serviceid
      */
     public static final String FILE_SERVICE = "ruoyi-file";
+
+
+    /**
+     * 积分服务的serviceid
+     */
+    public static final String POINTS_SERVICE = "ruoyi-points";
 }

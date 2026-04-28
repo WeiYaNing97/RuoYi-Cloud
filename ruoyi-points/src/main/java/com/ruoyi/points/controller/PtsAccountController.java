@@ -1,6 +1,12 @@
 package com.ruoyi.points.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import com.ruoyi.common.core.domain.R;
+import com.ruoyi.system.api.domain.PaymentRecord;
+import com.ruoyi.system.api.enums.PaymentMethodEnum;
+import com.ruoyi.system.api.enums.PaymentStatusEnum;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.common.log.annotation.Log;
 import com.ruoyi.common.log.enums.BusinessType;
@@ -100,5 +107,23 @@ public class PtsAccountController extends BaseController
     public AjaxResult remove(@PathVariable Long[] userIds)
     {
         return toAjax(ptsAccountService.deletePtsAccountByUserIds(userIds));
+    }
+
+
+
+    /**
+     * 默认支付成功
+     * @param id
+     * @return
+     */
+    @GetMapping("/getPaymentRecord")
+    public PaymentRecord getPaymentRecord(@RequestParam("id") Long id) {
+        PaymentRecord paymentRecord = PaymentRecord.builder()
+                .id(id)
+                .paymentMethod(PaymentMethodEnum.WECHAT.getCode())
+                .paymentTime(LocalDateTime.now())
+                .status(PaymentStatusEnum.SUCCESS.getCode())
+                .build();
+        return paymentRecord;
     }
 }
