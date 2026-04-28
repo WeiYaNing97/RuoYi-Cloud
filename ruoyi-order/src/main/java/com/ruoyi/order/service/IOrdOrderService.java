@@ -2,6 +2,7 @@ package com.ruoyi.order.service;
 
 import java.util.List;
 import com.ruoyi.order.domain.OrdOrder;
+import com.ruoyi.system.api.domain.PaymentRecord;
 
 /**
  * 订单主表Service接口
@@ -58,4 +59,11 @@ public interface IOrdOrderService
      * @return 结果
      */
     public int deleteOrdOrderById(Long id);
+
+    /**
+     * 修改支付状态
+     * @param payment
+     * @return
+     */
+    int updateOrdOrderStatus(PaymentRecord payment);
 }

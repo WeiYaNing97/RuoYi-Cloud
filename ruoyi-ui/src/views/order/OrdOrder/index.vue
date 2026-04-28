@@ -159,6 +159,12 @@
           <el-button
             size="mini"
             type="text"
+            icon="el-icon-view"
+            @click="handlePayment(scope.row)"
+          >支付</el-button>
+          <el-button
+            size="mini"
+            type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['order:OrdOrder:edit']"
@@ -173,7 +179,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -254,7 +260,7 @@
 </template>
 
 <script>
-import { listOrdOrder, getOrdOrder, delOrdOrder, addOrdOrder, updateOrdOrder } from "@/api/order/OrdOrder"
+import { listOrdOrder, getOrdOrder, delOrdOrder, addOrdOrder, updateOrdOrder, paymentOrdOrder} from "@/api/order/OrdOrder"
 import OrdOrderViewDrawer from "./view"
 
 export default {
@@ -402,6 +408,15 @@ export default {
         this.open = true
         this.title = "修改订单主表"
       })
+    },
+    /** 支付测试 */
+    handlePayment(row){
+      this.reset()
+      const id = row.id || this.ids
+      paymentOrdOrder(id).then(() => {
+        this.getList()
+        this.$modal.msgSuccess("支付成功")
+      }).catch(() => {})
     },
     /** 提交按钮 */
     submitForm() {

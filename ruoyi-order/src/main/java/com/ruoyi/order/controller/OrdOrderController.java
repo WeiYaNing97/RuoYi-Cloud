@@ -1,6 +1,12 @@
 package com.ruoyi.order.controller;
 
 import java.util.List;
+import java.util.Objects;
+
+import com.ruoyi.system.api.RemotePaymentService;
+import com.ruoyi.system.api.domain.PaymentRecord;
+import com.ruoyi.system.api.enums.PaymentStatusEnum;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +40,8 @@ public class OrdOrderController extends BaseController
     @Autowired
     private IOrdOrderService ordOrderService;
 
+    @Resource
+    private RemotePaymentService remotePaymentService;
     /**
      * 查询订单主表列表
      */
@@ -100,5 +108,28 @@ public class OrdOrderController extends BaseController
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(ordOrderService.deleteOrdOrderByIds(ids));
+    }
+
+
+    /**
+     * 订单支付
+     * @param id
+     * @return
+     */
+    @GetMapping("/payment")
+    public AjaxResult payment(Long id) {
+        PaymentRecord payment = remotePaymentService.payment(id);
+        // 支付成功
+        if (Objects.equals(payment.getStatus(),
+                PaymentStatusEnum.SUCCESS.getCode())) {
+
+            int i = ordOrderService.updateOrdOrderStatus(payment);
+            if (i > 0) {
+                // MQ 进行积分添加
+
+                return AjaxResult.success("支付失败");
+            }
+        }
+        return AjaxResult.error("支付失败");
     }
 }

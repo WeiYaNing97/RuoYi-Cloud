@@ -1,7 +1,13 @@
 package com.ruoyi.order.service.impl;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+
 import com.ruoyi.common.core.utils.DateUtils;
+import com.ruoyi.system.api.domain.PaymentRecord;
+import com.ruoyi.system.api.enums.OrderStatusEnum;
+import com.ruoyi.system.api.enums.PaymentStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.order.mapper.OrdOrderMapper;
@@ -92,5 +98,18 @@ public class OrdOrderServiceImpl implements IOrdOrderService
     public int deleteOrdOrderById(Long id)
     {
         return ordOrderMapper.deleteOrdOrderById(id);
+    }
+
+    @Override
+    public int updateOrdOrderStatus(PaymentRecord payment) {
+        OrdOrder ordOrder = ordOrderMapper.selectOrdOrderById(payment.getId());
+        ordOrder.setStatus(
+                Objects.equals(payment.getStatus(),PaymentStatusEnum.SUCCESS.getCode()) ?
+                        OrderStatusEnum.PENDING_SHIPMENT.getCode():
+                        OrderStatusEnum.PENDING_PAYMENT.getCode());
+        ordOrder.setPaymentType(payment.getPaymentMethod());
+        ordOrder.setPaymentTime(new Date());
+        ordOrder.setUpdateTime(DateUtils.getNowDate());
+        return ordOrderMapper.updateOrdOrder(ordOrder);
     }
 }

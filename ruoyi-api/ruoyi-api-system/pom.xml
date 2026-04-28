@@ -16,13 +16,18 @@
     </description>
 
     <dependencies>
-		
         <!-- RuoYi Common Core-->
         <dependency>
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-common-core</artifactId>
         </dependency>
-        
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

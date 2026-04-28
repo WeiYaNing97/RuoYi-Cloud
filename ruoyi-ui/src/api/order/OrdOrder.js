@@ -16,6 +16,14 @@ export function getOrdOrder(id) {
     method: 'get'
   })
 }
+// 查询订单主表详细
+export function paymentOrdOrder(id) {
+  return request({
+    url: '/order/OrdOrder/payment',
+    method: 'get',
+    params: { id }
+  })
+}
 
 // 新增订单主表
 export function addOrdOrder(data) {
