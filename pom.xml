@@ -224,7 +224,6 @@
         <module>ruoyi-common</module>
         <module>ruoyi-order</module>
         <module>ruoyi-points</module>
-        <module>ruoyi-market</module>
     </modules>
     <packaging>pom</packaging>
 
