@@ -22,14 +22,7 @@ public class RemotePaymentFallbackFactory  implements FallbackFactory<RemotePaym
         return new RemotePaymentService() {
             @Override
             public PaymentRecord payment(Long id) {
-                PaymentRecord payment = PaymentRecord.builder()
-                        .id(id)
-                        .bizOrderId("RemotePaymentFallbackFactory")
-                        .paymentMethod(PaymentMethodEnum.WECHAT.getCode())
-                        .paymentTime(LocalDateTime.now())
-                        .status(PaymentStatusEnum.FAILURE.getCode())
-                        .build();
-                return payment;
+                return null;
             }
         };
     }
