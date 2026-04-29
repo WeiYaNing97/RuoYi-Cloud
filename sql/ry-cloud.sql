@@ -11,7 +11,7 @@
  Target Server Version : 80018 (8.0.18)
  File Encoding         : 65001
 
- Date: 27/04/2026 14:54:57
+ Date: 29/04/2026 09:43:52
 */
 
 SET NAMES utf8mb4;
@@ -45,11 +45,18 @@ CREATE TABLE `gen_table`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gen_table
 -- ----------------------------
+INSERT INTO `gen_table` VALUES (1, 'mkt_coupon', '优惠券模板表', NULL, NULL, 'MktCoupon', 'crud', 'element-ui', 'com.ruoyi.system', 'system', 'coupon', '优惠券模板', 'ruoyi', 1, '0', '/', NULL, 'admin', '2026-04-27 19:03:10', '', NULL, NULL);
+INSERT INTO `gen_table` VALUES (2, 'mkt_user_coupon', '用户领券记录表', NULL, NULL, 'MktUserCoupon', 'crud', 'element-ui', 'com.ruoyi.system', 'system', 'coupon', '用户领券记录', 'ruoyi', 1, '0', '/', NULL, 'admin', '2026-04-27 19:03:10', '', NULL, NULL);
+INSERT INTO `gen_table` VALUES (3, 'ord_item', '订单明细表', NULL, NULL, 'OrdItem', 'crud', 'element-ui', 'com.ruoyi.order', 'order', 'OrdItem', '订单明细', '韦亚宁', 1, '0', '/', '{\"genView\":\"1\",\"parentMenuId\":2000}', 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:41', NULL);
+INSERT INTO `gen_table` VALUES (4, 'ord_order', '订单主表', NULL, NULL, 'OrdOrder', 'crud', 'element-ui', 'com.ruoyi.order', 'order', 'OrdOrder', '订单主表', '韦亚宁', 1, '0', '/', '{\"genView\":\"1\",\"parentMenuId\":2000}', 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17', NULL);
+INSERT INTO `gen_table` VALUES (5, 'ord_payment', '支付流水表', NULL, NULL, 'OrdPayment', 'crud', 'element-ui', 'com.ruoyi.order', 'order', 'OrdPayment', '支付流水', '韦亚宁', 1, '0', '/', '{\"genView\":\"1\",\"parentMenuId\":2000}', 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:12', NULL);
+INSERT INTO `gen_table` VALUES (6, 'pts_account', '积分账户表', NULL, NULL, 'PtsAccount', 'crud', 'element-ui', 'com.ruoyi.points', 'points', 'PtsAccount', '积分账户', '韦亚宁', 1, '0', '/', '{\"genView\":\"1\",\"parentMenuId\":2019}', 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:32:53', NULL);
+INSERT INTO `gen_table` VALUES (7, 'pts_log', '积分流水表', NULL, NULL, 'PtsLog', 'crud', 'element-ui', 'com.ruoyi.points', 'points', 'PtsLog', '积分流水', '韦亚宁', 1, '0', '/', '{\"genView\":\"1\",\"parentMenuId\":2019}', 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:33:34', NULL);
 
 -- ----------------------------
 -- Table structure for gen_table_column
@@ -79,10 +86,232 @@ CREATE TABLE `gen_table_column`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 65 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gen_table_column
+-- ----------------------------
+INSERT INTO `gen_table_column` VALUES (1, 1, 'id', NULL, 'bigint(20)', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (2, 1, 'name', '优惠券名称', 'varchar(100)', 'String', 'name', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (3, 1, 'type', '类型:1-满减;2-折扣', 'tinyint(4)', 'Integer', 'type', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 3, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (4, 1, 'condition_amount', '门槛金额(分)', 'bigint(20)', 'Long', 'conditionAmount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (5, 1, 'discount_amount', '优惠金额(分)', 'bigint(20)', 'Long', 'discountAmount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (6, 1, 'total_count', '总量(-1不限)', 'int(11)', 'Long', 'totalCount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (7, 1, 'per_limit', '每人限领', 'int(11)', 'Long', 'perLimit', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (8, 1, 'start_time', NULL, 'datetime', 'Date', 'startTime', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 8, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (9, 1, 'end_time', NULL, 'datetime', 'Date', 'endTime', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 9, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (10, 1, 'validity_days', '有效天数', 'int(11)', 'Long', 'validityDays', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (11, 2, 'id', NULL, 'bigint(20)', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (12, 2, 'coupon_id', '模板ID', 'bigint(20)', 'Long', 'couponId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (13, 2, 'user_id', '用户ID', 'bigint(20)', 'Long', 'userId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (14, 2, 'coupon_code', '券码', 'varchar(64)', 'String', 'couponCode', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (15, 2, 'use_status', '状态:0-未用;1-已用', 'tinyint(4)', 'Integer', 'useStatus', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 5, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (16, 2, 'order_id', '核销订单ID', 'bigint(20)', 'Long', 'orderId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (17, 2, 'start_time', NULL, 'datetime', 'Date', 'startTime', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 7, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (18, 2, 'end_time', NULL, 'datetime', 'Date', 'endTime', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 8, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (19, 2, 'obtain_time', NULL, 'datetime', 'Date', 'obtainTime', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 9, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (20, 2, 'use_time', NULL, 'datetime', 'Date', 'useTime', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'datetime', '', 10, 'admin', '2026-04-27 19:03:10', '', NULL);
+INSERT INTO `gen_table_column` VALUES (21, 3, 'id', NULL, 'bigint(20)', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:41');
+INSERT INTO `gen_table_column` VALUES (22, 3, 'order_id', '关联订单ID', 'bigint(20)', 'Long', 'orderId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:41');
+INSERT INTO `gen_table_column` VALUES (23, 3, 'product_id', '商品ID', 'bigint(20)', 'Long', 'productId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:41');
+INSERT INTO `gen_table_column` VALUES (24, 3, 'product_name', '商品名称快照', 'varchar(255)', 'String', 'productName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 4, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:41');
+INSERT INTO `gen_table_column` VALUES (25, 3, 'product_sku_code', 'SKU编码快照', 'varchar(64)', 'String', 'productSkuCode', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:41');
+INSERT INTO `gen_table_column` VALUES (26, 3, 'product_price', '单价(分)', 'bigint(20)', 'Long', 'productPrice', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:41');
+INSERT INTO `gen_table_column` VALUES (27, 3, 'product_quantity', '数量', 'int(11)', 'Long', 'productQuantity', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:41');
+INSERT INTO `gen_table_column` VALUES (28, 3, 'product_total_price', '总价(分)', 'bigint(20)', 'Long', 'productTotalPrice', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:41');
+INSERT INTO `gen_table_column` VALUES (29, 4, 'id', '主键ID', 'bigint(20)', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (30, 4, 'order_sn', '订单编号', 'varchar(64)', 'String', 'orderSn', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (31, 4, 'member_id', '用户ID', 'bigint(20)', 'Long', 'memberId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (32, 4, 'status', '状态:0-待支付;1-待发货;2-已发货;3-已完成;4-已关闭', 'tinyint(4)', 'Integer', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 4, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (33, 4, 'total_amount', '总金额(分)', 'bigint(20)', 'Long', 'totalAmount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (34, 4, 'pay_amount', '应付金额(分)', 'bigint(20)', 'Long', 'payAmount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (35, 4, 'promotion_amount', '优惠金额(分)', 'bigint(20)', 'Long', 'promotionAmount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (36, 4, 'freight_amount', '运费(分)', 'bigint(20)', 'Long', 'freightAmount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (37, 4, 'payment_type', '支付方式:1-微信;2-支付宝', 'tinyint(4)', 'Integer', 'paymentType', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'select', '', 9, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (38, 4, 'payment_time', '支付时间', 'datetime', 'Date', 'paymentTime', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'datetime', '', 10, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (39, 4, 'expire_time', '过期时间', 'datetime', 'Date', 'expireTime', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'datetime', '', 11, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (40, 4, 'version', '乐观锁版本号', 'int(11)', 'Long', 'version', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 12, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (41, 4, 'create_time', NULL, 'datetime', 'Date', 'createTime', '0', '0', '1', '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 13, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (42, 4, 'update_time', NULL, 'datetime', 'Date', 'updateTime', '0', '0', '1', '1', '1', NULL, NULL, 'EQ', 'datetime', '', 14, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:31:17');
+INSERT INTO `gen_table_column` VALUES (43, 5, 'id', NULL, 'bigint(20)', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:12');
+INSERT INTO `gen_table_column` VALUES (44, 5, 'order_id', '关联订单ID', 'bigint(20)', 'Long', 'orderId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:12');
+INSERT INTO `gen_table_column` VALUES (45, 5, 'payment_sn', '支付流水号', 'varchar(64)', 'String', 'paymentSn', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:12');
+INSERT INTO `gen_table_column` VALUES (46, 5, 'transaction_id', '第三方交易号', 'varchar(64)', 'String', 'transactionId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:12');
+INSERT INTO `gen_table_column` VALUES (47, 5, 'amount', '金额(分)', 'bigint(20)', 'Long', 'amount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:12');
+INSERT INTO `gen_table_column` VALUES (48, 5, 'status', '状态:0-未支付;1-成功', 'tinyint(4)', 'Integer', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 6, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:12');
+INSERT INTO `gen_table_column` VALUES (49, 5, 'payment_time', NULL, 'datetime', 'Date', 'paymentTime', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'datetime', '', 7, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:12');
+INSERT INTO `gen_table_column` VALUES (50, 5, 'create_time', NULL, 'datetime', 'Date', 'createTime', '0', '0', '1', '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 8, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 19:32:12');
+INSERT INTO `gen_table_column` VALUES (51, 6, 'user_id', '用户ID', 'bigint(20)', 'Long', 'userId', '1', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:32:53');
+INSERT INTO `gen_table_column` VALUES (52, 6, 'total_points', '总积分', 'bigint(20)', 'Long', 'totalPoints', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:32:53');
+INSERT INTO `gen_table_column` VALUES (53, 6, 'frozen_points', '冻结积分', 'bigint(20)', 'Long', 'frozenPoints', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:32:53');
+INSERT INTO `gen_table_column` VALUES (54, 6, 'version', '乐观锁版本', 'int(11)', 'Long', 'version', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:32:53');
+INSERT INTO `gen_table_column` VALUES (55, 6, 'update_time', NULL, 'datetime', 'Date', 'updateTime', '0', '0', '1', '1', '1', NULL, NULL, 'EQ', 'datetime', '', 5, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:32:53');
+INSERT INTO `gen_table_column` VALUES (56, 7, 'id', NULL, 'bigint(20)', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:33:34');
+INSERT INTO `gen_table_column` VALUES (57, 7, 'user_id', '用户ID', 'bigint(20)', 'Long', 'userId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:33:34');
+INSERT INTO `gen_table_column` VALUES (58, 7, 'type', '类型:1-增加;2-扣减', 'tinyint(4)', 'Integer', 'type', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 3, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:33:34');
+INSERT INTO `gen_table_column` VALUES (59, 7, 'amount', '变动数值', 'bigint(20)', 'Long', 'amount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:33:34');
+INSERT INTO `gen_table_column` VALUES (60, 7, 'balance_snapshot', '变动后余额快照', 'bigint(20)', 'Long', 'balanceSnapshot', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:33:34');
+INSERT INTO `gen_table_column` VALUES (61, 7, 'source_type', '来源:ORDER,SIGN', 'varchar(32)', 'String', 'sourceType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 6, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:33:34');
+INSERT INTO `gen_table_column` VALUES (62, 7, 'source_id', '来源业务ID(幂等)', 'varchar(64)', 'String', 'sourceId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:33:34');
+INSERT INTO `gen_table_column` VALUES (63, 7, 'description', NULL, 'varchar(255)', 'String', 'description', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:33:34');
+INSERT INTO `gen_table_column` VALUES (64, 7, 'create_time', NULL, 'datetime', 'Date', 'createTime', '0', '0', '1', '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 9, 'admin', '2026-04-27 19:03:10', '', '2026-04-27 20:33:34');
+
+-- ----------------------------
+-- Table structure for mkt_coupon
+-- ----------------------------
+DROP TABLE IF EXISTS `mkt_coupon`;
+CREATE TABLE `mkt_coupon`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '优惠券名称',
+  `type` tinyint(4) NOT NULL COMMENT '类型:1-满减;2-折扣',
+  `condition_amount` bigint(20) NOT NULL DEFAULT 0 COMMENT '门槛金额(分)',
+  `discount_amount` bigint(20) NOT NULL DEFAULT 0 COMMENT '优惠金额(分)',
+  `total_count` int(11) NOT NULL DEFAULT -1 COMMENT '总量(-1不限)',
+  `per_limit` int(11) NOT NULL DEFAULT 1 COMMENT '每人限领',
+  `start_time` datetime NOT NULL,
+  `end_time` datetime NOT NULL,
+  `validity_days` int(11) NULL DEFAULT NULL COMMENT '有效天数',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '优惠券模板表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of mkt_coupon
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for mkt_user_coupon
+-- ----------------------------
+DROP TABLE IF EXISTS `mkt_user_coupon`;
+CREATE TABLE `mkt_user_coupon`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `coupon_id` bigint(20) NOT NULL COMMENT '模板ID',
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `coupon_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '券码',
+  `use_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '状态:0-未用;1-已用',
+  `order_id` bigint(20) NULL DEFAULT NULL COMMENT '核销订单ID',
+  `start_time` datetime NOT NULL,
+  `end_time` datetime NOT NULL,
+  `obtain_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `use_time` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_coupon_code`(`coupon_code` ASC) USING BTREE,
+  INDEX `idx_user_id`(`user_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户领券记录表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of mkt_user_coupon
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ord_item
+-- ----------------------------
+DROP TABLE IF EXISTS `ord_item`;
+CREATE TABLE `ord_item`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NOT NULL COMMENT '关联订单ID',
+  `product_id` bigint(20) NOT NULL COMMENT '商品ID',
+  `product_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品名称快照',
+  `product_sku_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'SKU编码快照',
+  `product_price` bigint(20) NOT NULL COMMENT '单价(分)',
+  `product_quantity` int(11) NOT NULL COMMENT '数量',
+  `product_total_price` bigint(20) NOT NULL COMMENT '总价(分)',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_order_id`(`order_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '订单明细表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ord_item
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ord_order
+-- ----------------------------
+DROP TABLE IF EXISTS `ord_order`;
+CREATE TABLE `ord_order`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `order_sn` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '订单编号',
+  `member_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '状态:0-待支付;1-待发货;2-已发货;3-已完成;4-已关闭',
+  `total_amount` bigint(20) NOT NULL DEFAULT 0 COMMENT '总金额(分)',
+  `pay_amount` bigint(20) NOT NULL DEFAULT 0 COMMENT '应付金额(分)',
+  `promotion_amount` bigint(20) NOT NULL DEFAULT 0 COMMENT '优惠金额(分)',
+  `freight_amount` bigint(20) NOT NULL DEFAULT 0 COMMENT '运费(分)',
+  `payment_type` tinyint(4) NULL DEFAULT NULL COMMENT '支付方式:1-微信;2-支付宝',
+  `payment_time` datetime NULL DEFAULT NULL COMMENT '支付时间',
+  `expire_time` datetime NULL DEFAULT NULL COMMENT '过期时间',
+  `version` int(11) NOT NULL DEFAULT 0 COMMENT '乐观锁版本号',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_order_sn`(`order_sn` ASC) USING BTREE,
+  INDEX `idx_member_id`(`member_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '订单主表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ord_order
+-- ----------------------------
+INSERT INTO `ord_order` VALUES (2, '21', 21, 1, 12, 12, 12, 12, 1, '2026-04-28 17:04:56', NULL, 12, '2026-04-28 09:51:21', '2026-04-28 17:04:56');
+
+-- ----------------------------
+-- Table structure for ord_payment
+-- ----------------------------
+DROP TABLE IF EXISTS `ord_payment`;
+CREATE TABLE `ord_payment`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NOT NULL COMMENT '关联订单ID',
+  `payment_sn` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '支付流水号',
+  `transaction_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '第三方交易号',
+  `amount` bigint(20) NOT NULL COMMENT '金额(分)',
+  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '状态:0-未支付;1-成功',
+  `payment_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_payment_sn`(`payment_sn` ASC) USING BTREE,
+  INDEX `idx_order_id`(`order_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '支付流水表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ord_payment
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for pts_account
+-- ----------------------------
+DROP TABLE IF EXISTS `pts_account`;
+CREATE TABLE `pts_account`  (
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `total_points` bigint(20) NOT NULL DEFAULT 0 COMMENT '总积分',
+  `frozen_points` bigint(20) NOT NULL DEFAULT 0 COMMENT '冻结积分',
+  `version` int(11) NOT NULL DEFAULT 0 COMMENT '乐观锁版本',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '积分账户表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of pts_account
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for pts_log
+-- ----------------------------
+DROP TABLE IF EXISTS `pts_log`;
+CREATE TABLE `pts_log`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `type` tinyint(4) NOT NULL COMMENT '类型:1-增加;2-扣减',
+  `amount` bigint(20) NOT NULL COMMENT '变动数值',
+  `balance_snapshot` bigint(20) NOT NULL COMMENT '变动后余额快照',
+  `source_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '来源:ORDER,SIGN',
+  `source_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '来源业务ID(幂等)',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_source`(`source_type` ASC, `source_id` ASC) USING BTREE,
+  INDEX `idx_user_id`(`user_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '积分流水表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of pts_log
 -- ----------------------------
 
 -- ----------------------------
@@ -282,7 +511,7 @@ CREATE TABLE `sys_job_log`  (
   `end_time` datetime NULL DEFAULT NULL COMMENT '执行结束时间',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`job_log_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_job_log
@@ -302,11 +531,16 @@ CREATE TABLE `sys_logininfor`  (
   PRIMARY KEY (`info_id`) USING BTREE,
   INDEX `idx_sys_logininfor_s`(`status` ASC) USING BTREE,
   INDEX `idx_sys_logininfor_lt`(`access_time` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 105 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_logininfor
 -- ----------------------------
+INSERT INTO `sys_logininfor` VALUES (100, 'admin', '127.0.0.1', '0', '登录成功', '2026-04-27 15:20:13');
+INSERT INTO `sys_logininfor` VALUES (101, 'admin', '127.0.0.1', '0', '登录成功', '2026-04-27 20:29:05');
+INSERT INTO `sys_logininfor` VALUES (102, 'admin', '127.0.0.1', '0', '登录成功', '2026-04-28 08:48:38');
+INSERT INTO `sys_logininfor` VALUES (103, 'admin', '127.0.0.1', '0', '登录成功', '2026-04-28 16:24:39');
+INSERT INTO `sys_logininfor` VALUES (104, 'admin', '127.0.0.1', '0', '登录成功', '2026-04-28 16:56:52');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -334,15 +568,15 @@ CREATE TABLE `sys_menu`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2000 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2032 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 1, 'system', NULL, '', '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2026-04-26 21:27:50', '', NULL, '系统管理目录');
-INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 2, 'monitor', NULL, '', '', 1, 0, 'M', '0', '0', '', 'monitor', 'admin', '2026-04-26 21:27:50', '', NULL, '系统监控目录');
-INSERT INTO `sys_menu` VALUES (3, '系统工具', 0, 3, 'tool', NULL, '', '', 1, 0, 'M', '0', '0', '', 'tool', 'admin', '2026-04-26 21:27:50', '', NULL, '系统工具目录');
-INSERT INTO `sys_menu` VALUES (4, '若依官网', 0, 4, 'http://ruoyi.vip', NULL, '', '', 0, 0, 'M', '0', '0', '', 'guide', 'admin', '2026-04-26 21:27:50', '', NULL, '若依官网地址');
+INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 10, 'system', NULL, '', '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2026-04-26 21:27:50', 'admin', '2026-04-27 20:30:00', '系统管理目录');
+INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 20, 'monitor', NULL, '', '', 1, 0, 'M', '0', '0', '', 'monitor', 'admin', '2026-04-26 21:27:50', 'admin', '2026-04-27 20:30:09', '系统监控目录');
+INSERT INTO `sys_menu` VALUES (3, '系统工具', 0, 30, 'tool', NULL, '', '', 1, 0, 'M', '0', '0', '', 'tool', 'admin', '2026-04-26 21:27:50', 'admin', '2026-04-27 20:30:04', '系统工具目录');
+INSERT INTO `sys_menu` VALUES (4, '若依官网', 0, 100, 'http://ruoyi.vip', NULL, '', '', 0, 0, 'M', '0', '0', '', 'guide', 'admin', '2026-04-26 21:27:50', 'admin', '2026-04-27 19:05:42', '若依官网地址');
 INSERT INTO `sys_menu` VALUES (100, '用户管理', 1, 1, 'user', 'system/user/index', '', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin', '2026-04-26 21:27:50', '', NULL, '用户管理菜单');
 INSERT INTO `sys_menu` VALUES (101, '角色管理', 1, 2, 'role', 'system/role/index', '', '', 1, 0, 'C', '0', '0', 'system:role:list', 'peoples', 'admin', '2026-04-26 21:27:50', '', NULL, '角色管理菜单');
 INSERT INTO `sys_menu` VALUES (102, '菜单管理', 1, 3, 'menu', 'system/menu/index', '', '', 1, 0, 'C', '0', '0', 'system:menu:list', 'tree-table', 'admin', '2026-04-26 21:27:50', '', NULL, '菜单管理菜单');
@@ -423,6 +657,38 @@ INSERT INTO `sys_menu` VALUES (1057, '生成删除', 115, 3, '#', '', '', '', 1,
 INSERT INTO `sys_menu` VALUES (1058, '导入代码', 115, 2, '#', '', '', '', 1, 0, 'F', '0', '0', 'tool:gen:import', '#', 'admin', '2026-04-26 21:27:50', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1059, '预览代码', 115, 4, '#', '', '', '', 1, 0, 'F', '0', '0', 'tool:gen:preview', '#', 'admin', '2026-04-26 21:27:50', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1060, '生成代码', 115, 5, '#', '', '', '', 1, 0, 'F', '0', '0', 'tool:gen:code', '#', 'admin', '2026-04-26 21:27:50', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2000, '订单管理', 0, 1, '/order', NULL, NULL, '', 1, 0, 'M', '0', '0', '', 'shopping', 'admin', '2026-04-27 19:05:22', 'admin', '2026-04-27 20:31:39', '');
+INSERT INTO `sys_menu` VALUES (2001, '订单明细', 2000, 1, 'OrdItem', 'order/OrdItem/index', NULL, '', 1, 0, 'C', '0', '0', 'order:OrdItem:list', '#', 'admin', '2026-04-27 19:11:46', '', NULL, '订单明细菜单');
+INSERT INTO `sys_menu` VALUES (2002, '订单明细查询', 2001, 1, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdItem:query', '#', 'admin', '2026-04-27 19:11:46', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2003, '订单明细新增', 2001, 2, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdItem:add', '#', 'admin', '2026-04-27 19:11:46', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2004, '订单明细修改', 2001, 3, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdItem:edit', '#', 'admin', '2026-04-27 19:11:46', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2005, '订单明细删除', 2001, 4, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdItem:remove', '#', 'admin', '2026-04-27 19:11:46', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2006, '订单明细导出', 2001, 5, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdItem:export', '#', 'admin', '2026-04-27 19:11:46', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2007, '订单主表', 2000, 1, 'OrdOrder', 'order/OrdOrder/index', NULL, '', 1, 0, 'C', '0', '0', 'order:OrdOrder:list', '#', 'admin', '2026-04-27 19:35:52', '', NULL, '订单主表菜单');
+INSERT INTO `sys_menu` VALUES (2008, '订单主表查询', 2007, 1, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdOrder:query', '#', 'admin', '2026-04-27 19:35:52', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2009, '订单主表新增', 2007, 2, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdOrder:add', '#', 'admin', '2026-04-27 19:35:52', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2010, '订单主表修改', 2007, 3, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdOrder:edit', '#', 'admin', '2026-04-27 19:35:52', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2011, '订单主表删除', 2007, 4, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdOrder:remove', '#', 'admin', '2026-04-27 19:35:52', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2012, '订单主表导出', 2007, 5, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdOrder:export', '#', 'admin', '2026-04-27 19:35:52', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2013, '支付流水', 2000, 1, 'OrdPayment', 'order/OrdPayment/index', NULL, '', 1, 0, 'C', '0', '0', 'order:OrdPayment:list', '#', 'admin', '2026-04-27 19:36:01', '', NULL, '支付流水菜单');
+INSERT INTO `sys_menu` VALUES (2014, '支付流水查询', 2013, 1, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdPayment:query', '#', 'admin', '2026-04-27 19:36:01', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2015, '支付流水新增', 2013, 2, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdPayment:add', '#', 'admin', '2026-04-27 19:36:01', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2016, '支付流水修改', 2013, 3, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdPayment:edit', '#', 'admin', '2026-04-27 19:36:01', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2017, '支付流水删除', 2013, 4, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdPayment:remove', '#', 'admin', '2026-04-27 19:36:01', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2018, '支付流水导出', 2013, 5, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'order:OrdPayment:export', '#', 'admin', '2026-04-27 19:36:01', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2019, '积分管理', 0, 2, 'points', NULL, NULL, '', 1, 0, 'M', '0', '0', NULL, 'edit', 'admin', '2026-04-27 20:31:23', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2020, '积分账户', 2019, 1, 'PtsAccount', 'points/PtsAccount/index', NULL, '', 1, 0, 'C', '0', '0', 'points:PtsAccount:list', '#', 'admin', '2026-04-27 20:37:34', '', NULL, '积分账户菜单');
+INSERT INTO `sys_menu` VALUES (2021, '积分账户查询', 2020, 1, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'points:PtsAccount:query', '#', 'admin', '2026-04-27 20:37:34', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2022, '积分账户新增', 2020, 2, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'points:PtsAccount:add', '#', 'admin', '2026-04-27 20:37:34', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2023, '积分账户修改', 2020, 3, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'points:PtsAccount:edit', '#', 'admin', '2026-04-27 20:37:34', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2024, '积分账户删除', 2020, 4, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'points:PtsAccount:remove', '#', 'admin', '2026-04-27 20:37:34', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2025, '积分账户导出', 2020, 5, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'points:PtsAccount:export', '#', 'admin', '2026-04-27 20:37:34', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2026, '积分流水', 2019, 1, 'PtsLog', 'points/PtsLog/index', NULL, '', 1, 0, 'C', '0', '0', 'points:PtsLog:list', '#', 'admin', '2026-04-27 20:37:44', '', NULL, '积分流水菜单');
+INSERT INTO `sys_menu` VALUES (2027, '积分流水查询', 2026, 1, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'points:PtsLog:query', '#', 'admin', '2026-04-27 20:37:44', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2028, '积分流水新增', 2026, 2, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'points:PtsLog:add', '#', 'admin', '2026-04-27 20:37:44', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2029, '积分流水修改', 2026, 3, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'points:PtsLog:edit', '#', 'admin', '2026-04-27 20:37:44', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2030, '积分流水删除', 2026, 4, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'points:PtsLog:remove', '#', 'admin', '2026-04-27 20:37:44', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2031, '积分流水导出', 2026, 5, '#', '', NULL, '', 1, 0, 'F', '0', '0', 'points:PtsLog:export', '#', 'admin', '2026-04-27 20:37:44', '', NULL, '');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -460,11 +726,14 @@ CREATE TABLE `sys_notice_read`  (
   `read_time` datetime NOT NULL COMMENT '阅读时间',
   PRIMARY KEY (`read_id`) USING BTREE,
   UNIQUE INDEX `uk_user_notice`(`user_id` ASC, `notice_id` ASC) USING BTREE COMMENT '同一用户同一公告只记录一次'
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '公告已读记录表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '公告已读记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_notice_read
 -- ----------------------------
+INSERT INTO `sys_notice_read` VALUES (1, 3, 1, '2026-04-27 19:09:30');
+INSERT INTO `sys_notice_read` VALUES (2, 2, 1, '2026-04-27 19:09:30');
+INSERT INTO `sys_notice_read` VALUES (3, 1, 1, '2026-04-27 19:09:30');
 
 -- ----------------------------
 -- Table structure for sys_oper_log
@@ -492,11 +761,34 @@ CREATE TABLE `sys_oper_log`  (
   INDEX `idx_sys_oper_log_bt`(`business_type` ASC) USING BTREE,
   INDEX `idx_sys_oper_log_s`(`status` ASC) USING BTREE,
   INDEX `idx_sys_oper_log_ot`(`oper_time` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 123 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_oper_log
 -- ----------------------------
+INSERT INTO `sys_oper_log` VALUES (100, '代码生成', 6, 'com.ruoyi.gen.controller.GenController.importTableSave()', 'POST', 1, 'admin', NULL, '/gen/importTable', '127.0.0.1', '', '{\"tables\":\"mkt_coupon,mkt_user_coupon,pts_account,pts_log,ord_item,ord_order,ord_payment\",\"tplWebType\":\"element-ui\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 19:03:11', 689);
+INSERT INTO `sys_oper_log` VALUES (101, '菜单管理', 1, 'com.ruoyi.system.controller.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/menu', '127.0.0.1', '', '{\"children\":[],\"createBy\":\"admin\",\"icon\":\"build\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"订单管理\",\"menuType\":\"M\",\"orderNum\":4,\"params\":{},\"parentId\":0,\"path\":\"/order\",\"status\":\"0\",\"visible\":\"0\"} ', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 19:05:23', 89);
+INSERT INTO `sys_oper_log` VALUES (102, '菜单管理', 2, 'com.ruoyi.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/menu', '127.0.0.1', '', '{\"children\":[],\"createTime\":\"2026-04-26 21:27:50\",\"icon\":\"guide\",\"isCache\":\"0\",\"isFrame\":\"0\",\"menuId\":4,\"menuName\":\"若依官网\",\"menuType\":\"M\",\"orderNum\":100,\"params\":{},\"parentId\":0,\"path\":\"http://ruoyi.vip\",\"perms\":\"\",\"query\":\"\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"} ', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 19:05:42', 23);
+INSERT INTO `sys_oper_log` VALUES (103, '代码生成', 2, 'com.ruoyi.gen.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/gen', '127.0.0.1', '', '{\"businessName\":\"OrdItem\",\"className\":\"OrdItem\",\"columns\":[{\"capJavaField\":\"Id\",\"columnId\":21,\"columnName\":\"id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":3,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"OrderId\",\"columnComment\":\"关联订单ID\",\"columnId\":22,\"columnName\":\"order_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"orderId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":3,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"ProductId\",\"columnComment\":\"商品ID\",\"columnId\":23,\"columnName\":\"product_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"productId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":3,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"ProductName\",\"columnComment\":\"商品名称快照\",\"columnId\":24,\"columnName\":\"product_name\",\"columnType\":\"varchar(255)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"productName\",\"javaType\":\"Str', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 19:07:04', 190);
+INSERT INTO `sys_oper_log` VALUES (104, '代码生成', 8, 'com.ruoyi.gen.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/gen/batchGenCode', '127.0.0.1', '', '{\"tables\":\"ord_item\"}', NULL, 0, NULL, '2026-04-27 19:09:37', 181);
+INSERT INTO `sys_oper_log` VALUES (105, '代码生成', 2, 'com.ruoyi.gen.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/gen', '127.0.0.1', '', '{\"businessName\":\"OrdOrder\",\"className\":\"OrdOrder\",\"columns\":[{\"capJavaField\":\"Id\",\"columnComment\":\"主键ID\",\"columnId\":29,\"columnName\":\"id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":4,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"OrderSn\",\"columnComment\":\"订单编号\",\"columnId\":30,\"columnName\":\"order_sn\",\"columnType\":\"varchar(64)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"orderSn\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":4,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"MemberId\",\"columnComment\":\"用户ID\",\"columnId\":31,\"columnName\":\"member_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"memberId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":4,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"Status\",\"columnComment\":\"状态:0-待支付;1-待发货;2-已发货;3-已完成;4-已关闭\",\"columnId\":32,\"columnName\":\"status\",\"columnType\":\"tinyint(4)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"radio\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"java', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 19:29:29', 69);
+INSERT INTO `sys_oper_log` VALUES (106, '代码生成', 2, 'com.ruoyi.gen.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/gen', '127.0.0.1', '', '{\"businessName\":\"OrdItem\",\"className\":\"OrdItem\",\"columns\":[{\"capJavaField\":\"Id\",\"columnId\":21,\"columnName\":\"id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":3,\"updateBy\":\"\",\"updateTime\":\"2026-04-27 19:07:04\",\"usableColumn\":false},{\"capJavaField\":\"OrderId\",\"columnComment\":\"关联订单ID\",\"columnId\":22,\"columnName\":\"order_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"orderId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":3,\"updateBy\":\"\",\"updateTime\":\"2026-04-27 19:07:04\",\"usableColumn\":false},{\"capJavaField\":\"ProductId\",\"columnComment\":\"商品ID\",\"columnId\":23,\"columnName\":\"product_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"productId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":3,\"updateBy\":\"\",\"updateTime\":\"2026-04-27 19:07:04\",\"usableColumn\":false},{\"capJavaField\":\"ProductName\",\"columnComment\":\"商品名称快照\",\"columnId\":24,\"columnName\":\"product_name\",\"columnType\":\"varchar(255)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isIns', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 19:30:30', 42);
+INSERT INTO `sys_oper_log` VALUES (107, '代码生成', 2, 'com.ruoyi.gen.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/gen', '127.0.0.1', '', '{\"businessName\":\"OrdOrder\",\"className\":\"OrdOrder\",\"columns\":[{\"capJavaField\":\"Id\",\"columnComment\":\"主键ID\",\"columnId\":29,\"columnName\":\"id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":4,\"updateBy\":\"\",\"updateTime\":\"2026-04-27 19:29:29\",\"usableColumn\":false},{\"capJavaField\":\"OrderSn\",\"columnComment\":\"订单编号\",\"columnId\":30,\"columnName\":\"order_sn\",\"columnType\":\"varchar(64)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"orderSn\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":4,\"updateBy\":\"\",\"updateTime\":\"2026-04-27 19:29:29\",\"usableColumn\":false},{\"capJavaField\":\"MemberId\",\"columnComment\":\"用户ID\",\"columnId\":31,\"columnName\":\"member_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"memberId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":4,\"updateBy\":\"\",\"updateTime\":\"2026-04-27 19:29:29\",\"usableColumn\":false},{\"capJavaField\":\"Status\",\"columnComment\":\"状态:0-待支付;1-待发货;2-已发货;3-已完成;4-已关闭\",\"columnId\":32,\"columnName\":\"status\",\"columnType\":\"tinyint(4)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"radio\",\"increment\":false,\"insert\":true,\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 19:31:17', 48);
+INSERT INTO `sys_oper_log` VALUES (108, '代码生成', 2, 'com.ruoyi.gen.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/gen', '127.0.0.1', '', '{\"businessName\":\"OrdPayment\",\"className\":\"OrdPayment\",\"columns\":[{\"capJavaField\":\"Id\",\"columnId\":43,\"columnName\":\"id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":5,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"OrderId\",\"columnComment\":\"关联订单ID\",\"columnId\":44,\"columnName\":\"order_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"orderId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":5,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"PaymentSn\",\"columnComment\":\"支付流水号\",\"columnId\":45,\"columnName\":\"payment_sn\",\"columnType\":\"varchar(64)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"paymentSn\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":5,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"TransactionId\",\"columnComment\":\"第三方交易号\",\"columnId\":46,\"columnName\":\"transaction_id\",\"columnType\":\"varchar(64)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"javaField\":\"transactionId\",\"javaType\":\"Strin', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 19:32:12', 30);
+INSERT INTO `sys_oper_log` VALUES (109, '代码生成', 2, 'com.ruoyi.gen.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/gen', '127.0.0.1', '', '{\"businessName\":\"OrdItem\",\"className\":\"OrdItem\",\"columns\":[{\"capJavaField\":\"Id\",\"columnId\":21,\"columnName\":\"id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":3,\"updateBy\":\"\",\"updateTime\":\"2026-04-27 19:30:30\",\"usableColumn\":false},{\"capJavaField\":\"OrderId\",\"columnComment\":\"关联订单ID\",\"columnId\":22,\"columnName\":\"order_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"orderId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":3,\"updateBy\":\"\",\"updateTime\":\"2026-04-27 19:30:30\",\"usableColumn\":false},{\"capJavaField\":\"ProductId\",\"columnComment\":\"商品ID\",\"columnId\":23,\"columnName\":\"product_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"productId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":3,\"updateBy\":\"\",\"updateTime\":\"2026-04-27 19:30:30\",\"usableColumn\":false},{\"capJavaField\":\"ProductName\",\"columnComment\":\"商品名称快照\",\"columnId\":24,\"columnName\":\"product_name\",\"columnType\":\"varchar(255)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isIns', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 19:32:41', 42);
+INSERT INTO `sys_oper_log` VALUES (110, '代码生成', 8, 'com.ruoyi.gen.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/gen/batchGenCode', '127.0.0.1', '', '{\"tables\":\"ord_item,ord_order,ord_payment\"}', NULL, 0, NULL, '2026-04-27 19:33:28', 308);
+INSERT INTO `sys_oper_log` VALUES (111, '菜单管理', 2, 'com.ruoyi.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/menu', '127.0.0.1', '', '{\"children\":[],\"createTime\":\"2026-04-26 21:27:50\",\"icon\":\"system\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":1,\"menuName\":\"系统管理\",\"menuType\":\"M\",\"orderNum\":10,\"params\":{},\"parentId\":0,\"path\":\"system\",\"perms\":\"\",\"query\":\"\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"} ', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 20:30:01', 100);
+INSERT INTO `sys_oper_log` VALUES (112, '菜单管理', 2, 'com.ruoyi.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/menu', '127.0.0.1', '', '{\"children\":[],\"createTime\":\"2026-04-26 21:27:50\",\"icon\":\"tool\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":3,\"menuName\":\"系统工具\",\"menuType\":\"M\",\"orderNum\":30,\"params\":{},\"parentId\":0,\"path\":\"tool\",\"perms\":\"\",\"query\":\"\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"} ', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 20:30:04', 24);
+INSERT INTO `sys_oper_log` VALUES (113, '菜单管理', 2, 'com.ruoyi.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/menu', '127.0.0.1', '', '{\"children\":[],\"createTime\":\"2026-04-26 21:27:50\",\"icon\":\"monitor\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2,\"menuName\":\"系统监控\",\"menuType\":\"M\",\"orderNum\":20,\"params\":{},\"parentId\":0,\"path\":\"monitor\",\"perms\":\"\",\"query\":\"\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"} ', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 20:30:09', 20);
+INSERT INTO `sys_oper_log` VALUES (114, '菜单管理', 2, 'com.ruoyi.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/menu', '127.0.0.1', '', '{\"children\":[],\"createTime\":\"2026-04-27 19:05:22\",\"icon\":\"build\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2000,\"menuName\":\"订单管理\",\"menuType\":\"M\",\"orderNum\":1,\"params\":{},\"parentId\":0,\"path\":\"/order\",\"perms\":\"\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"} ', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 20:30:17', 25);
+INSERT INTO `sys_oper_log` VALUES (115, '菜单管理', 1, 'com.ruoyi.system.controller.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/menu', '127.0.0.1', '', '{\"children\":[],\"createBy\":\"admin\",\"icon\":\"edit\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"积分管理\",\"menuType\":\"M\",\"orderNum\":2,\"params\":{},\"parentId\":0,\"path\":\"points\",\"status\":\"0\",\"visible\":\"0\"} ', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 20:31:23', 12);
+INSERT INTO `sys_oper_log` VALUES (116, '菜单管理', 2, 'com.ruoyi.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/menu', '127.0.0.1', '', '{\"children\":[],\"createTime\":\"2026-04-27 19:05:22\",\"icon\":\"shopping\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2000,\"menuName\":\"订单管理\",\"menuType\":\"M\",\"orderNum\":1,\"params\":{},\"parentId\":0,\"path\":\"/order\",\"perms\":\"\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"} ', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 20:31:39', 18);
+INSERT INTO `sys_oper_log` VALUES (117, '代码生成', 2, 'com.ruoyi.gen.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/gen', '127.0.0.1', '', '{\"businessName\":\"PtsAccount\",\"className\":\"PtsAccount\",\"columns\":[{\"capJavaField\":\"UserId\",\"columnComment\":\"用户ID\",\"columnId\":51,\"columnName\":\"user_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"userId\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":6,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"TotalPoints\",\"columnComment\":\"总积分\",\"columnId\":52,\"columnName\":\"total_points\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"totalPoints\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":6,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"FrozenPoints\",\"columnComment\":\"冻结积分\",\"columnId\":53,\"columnName\":\"frozen_points\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"frozenPoints\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":6,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"Version\",\"columnComment\":\"乐观锁版本\",\"columnId\":54,\"columnName\":\"version\",\"columnType\":\"int(11)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 20:32:53', 50);
+INSERT INTO `sys_oper_log` VALUES (118, '代码生成', 2, 'com.ruoyi.gen.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/gen', '127.0.0.1', '', '{\"businessName\":\"PtsLog\",\"className\":\"PtsLog\",\"columns\":[{\"capJavaField\":\"Id\",\"columnId\":56,\"columnName\":\"id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":7,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"UserId\",\"columnComment\":\"用户ID\",\"columnId\":57,\"columnName\":\"user_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"userId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":7,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"Type\",\"columnComment\":\"类型:1-增加;2-扣减\",\"columnId\":58,\"columnName\":\"type\",\"columnType\":\"tinyint(4)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"select\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"type\",\"javaType\":\"Integer\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":7,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"Amount\",\"columnComment\":\"变动数值\",\"columnId\":59,\"columnName\":\"amount\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2026-04-27 19:03:10\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"amount\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-27 20:33:34', 16);
+INSERT INTO `sys_oper_log` VALUES (119, '代码生成', 8, 'com.ruoyi.gen.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/gen/batchGenCode', '127.0.0.1', '', '{\"tables\":\"pts_account,pts_log\"}', NULL, 0, NULL, '2026-04-27 20:34:42', 1111);
+INSERT INTO `sys_oper_log` VALUES (120, '订单主表', 1, 'com.ruoyi.order.controller.OrdOrderController.add()', 'POST', 1, 'admin', NULL, '/OrdOrder', '127.0.0.1', '', '{\"createTime\":\"2026-04-28 08:51:44\",\"freightAmount\":1,\"id\":1,\"memberId\":1,\"orderSn\":\"1\",\"params\":{},\"payAmount\":1,\"promotionAmount\":1,\"totalAmount\":1,\"version\":1} ', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-28 08:51:44', 172);
+INSERT INTO `sys_oper_log` VALUES (121, '订单主表', 3, 'com.ruoyi.order.controller.OrdOrderController.remove()', 'DELETE', 1, 'admin', NULL, '/OrdOrder/1', '127.0.0.1', '', '[1] ', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-28 08:52:51', 18);
+INSERT INTO `sys_oper_log` VALUES (122, '订单主表', 1, 'com.ruoyi.order.controller.OrdOrderController.add()', 'POST', 1, 'admin', NULL, '/OrdOrder', '127.0.0.1', '', '{\"createTime\":\"2026-04-28 09:51:20\",\"freightAmount\":12,\"id\":2,\"memberId\":21,\"orderSn\":\"21\",\"params\":{},\"payAmount\":12,\"promotionAmount\":12,\"totalAmount\":12,\"version\":12} ', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2026-04-28 09:51:21', 178);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -698,7 +990,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2026-04-26 21:27:50', '2026-04-26 21:27:50', 'admin', '2026-04-26 21:27:50', '', NULL, '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2026-04-28 16:56:52', '2026-04-26 21:27:50', 'admin', '2026-04-26 21:27:50', '', NULL, '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2026-04-26 21:27:50', '2026-04-26 21:27:50', 'admin', '2026-04-26 21:27:50', '', NULL, '测试员');
 
 -- ----------------------------
